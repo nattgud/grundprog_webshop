@@ -6,8 +6,9 @@ class Product {
      * @param {String} namn
      * @param {String} kategori
      * @param {Number} pris
+     * @param {String} beskrivning
      */
-    constructor(id, namn, kategori, pris) {
+    constructor(id, namn, kategori, pris, beskrivning) {
         this.id = id;
         this.namn = namn;
         this.kategori = kategori;
@@ -19,12 +20,15 @@ class Product {
     setPris = (pris) => (this.pris = pris);
 
     setKategori = (kategori) => (this.kategori = kategori);
+    setBeskrivning = (beskrivning) => (this.beskrivning = beskrivning);
 
     getNamn = () => this.namn;
 
     getPris = () => this.pris;
 
     getKategori = () => this.kategori;
+
+    getBeskrivning = () => this.beskrivning;
 
     getId = () => this.id;
 }
@@ -52,12 +56,14 @@ class ProduktLista {
         }
     };
 
-    // Nedanstående funktioner hämtar priset, namnet, samt kategorin på produkten med ett visst id.
+    // Nedanstående funktioner hämtar priset, namnet, kategorin, samt beskrivningen på produkten med ett visst id.
     getPris = (id) => this.getProd(id).getPris();
 
     getNamn = (id) => this.getProd(id).getNamn();
 
     getKategori = (id) => this.getProd(id).getKategori();
+
+    getBeskrivning = (id) => this.getProd(id).getBeskrivning();
 }
 
 class Varukorg {
