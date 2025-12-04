@@ -20,6 +20,7 @@ class Product {
     setPris = (pris) => (this.pris = pris);
 
     setKategori = (kategori) => (this.kategori = kategori);
+
     setBeskrivning = (beskrivning) => (this.beskrivning = beskrivning);
 
     getNamn = () => this.namn;
@@ -44,8 +45,8 @@ class ProduktLista {
     }
 
     // Lägger till en produkt i sortimentet med id, namn, kategori, och pris.
-    addProd = (id, namn, kategori, pris) =>
-        this.prodLista.push(new Product(id, namn, kategori, pris));
+    addProd = (id, namn, kategori, pris, beskrivning) =>
+        this.prodLista.push(new Product(id, namn, kategori, pris, beskrivning));
 
     // Hämtar produkten med ett visst id. Här borde det finnas någon sorts felkontroll också ifall id:t inte finns.
     getProd = (id) => {
