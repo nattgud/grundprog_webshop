@@ -65,6 +65,14 @@ class ProduktLista {
     getKategori = (id) => this.getProd(id).getKategori();
 
     getBeskrivning = (id) => this.getProd(id).getBeskrivning();
+
+    getKategoriLista = (kat) => {
+        const lista = [];
+        this.prodLista.forEach((i) => {
+            if (i.kategori === "kat") lista.push(i.id);
+        });
+        return lista;
+    };
 }
 
 class Varukorg {
