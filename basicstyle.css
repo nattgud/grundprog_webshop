@@ -18,6 +18,12 @@ header {
     align-content: center;
 }
 
+#logga-text {
+    @media (width<750px) {
+        display: none;
+    }
+}
+
 nav {
     display: flex;
     flex-direction: row;
