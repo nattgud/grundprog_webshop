@@ -2,11 +2,14 @@
     box-sizing: border-box;
 }
 
-/*  */
+/* colors to work with and add to */
 :root {
     --pinkish-color: #ca1c8a;
     --dark-blue: #11152B;
     --text-color: #CDD4FF;
+    --bright-green: #06b400;
+    --dark-green: #167e13;
+    --green-transparent: #6aff658a;
     --color-gradient1: linear-gradient(to right, #11152B, #90276B);
     --color-gradient2: radial-gradient(#ffffff5b, #90276b00 40%, transparent);
     --body-background: linear-gradient(#11152B, #252E5E 70%);
@@ -91,4 +94,18 @@
     background: var(--color-gradient2);
     transition: all .3s ease;
     transform: scale(1.3, 1.3);
+}
+
+/* Buy or add to shopping cart button*/
+.buy-button {
+    background-color: var(--dark-green);
+    color: var(--text-color);
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.buy-button:hover {
+    background-color: var(--green-transparent);
 }
