@@ -19,7 +19,7 @@ header {
 }
 
 #logga-text {
-    @media (width<750px) {
+    @media (width<350px) {
         display: none;
     }
 }
@@ -42,6 +42,17 @@ nav ul {
     gap: 1em;
 }
 
+#topnav {
+    @media (width<750px) {
+        display: none;
+    }
+}
+
+#navbar {
+    @media (width>749px) {
+        display: none;
+    }
+}
 .gallery {
     display: flex;
     flex-direction: row;
