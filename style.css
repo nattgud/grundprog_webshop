@@ -204,45 +204,45 @@ nav ul li a:hover {
 	gap: 5vw;
 }
 /* category items (flex, cursor, hover) */
-.main-item {
+.main-item, .itemcard {
     display: flex;
 	flex-direction: row;
     border-radius: 1em;
     justify-content: space-around;
     padding: 1em;
     margin: 1em;
-    /* width: 250px; */
     flex: 1 1 250px;
     cursor: pointer;
     border: 1px solid var(--pinkish-color);
-    background-color: rgba(0, 0, 0, 0);
-    transition: background-color 200ms;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 200ms, color 200ms;
 }
-.gallery .main-item:hover {
+.gallery .main-item:hover, .gallery .itemcard:hover {
+    color: #fff;
 	background-color: rgba(0, 0, 0, 0.5);
 }
-
+.itemcard {
+    flex-direction: column;
+    flex: 0 1 250px;
+}
+.itemcard .card-footer .card-button {
+    transition: text-shadow 200ms;
+}
+.itemcard .card-footer .card-button:hover {
+	text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 20px #fff, 0px 0px 40px #fff;
+}
+.itemcard .card-picture img {
+    width: 100%;
+    border-radius: 3px;
+}
+.card-header,
+.card-picture {
+    align-self: center;
+}
 .main-header,
 .main-picture {
     align-self: center;
 }
-
-.itemcard {
-    display: flex;
-    flex-direction: column;
-    border: 2px solid #cdd4ff;
-    border-radius: 1em;
-    justify-content: space-around;
-    align-self: center;
-    padding: 1em;
-    margin: 1em;
-    width: 250px;
-}
-
-/* .card-header,
-.card-picture {
-    align-self: center;
-} */
 /* centering and font size for responsive layout */
 .gallery .main-item .main-header {
 	display: flex;
