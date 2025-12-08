@@ -153,5 +153,22 @@ class Varukorg {
     tomKorg = () => (this.korg = []); //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
 }
 
-const produktListan = new ProduktLista();
-const varukorgen = new Varukorg(produktListan);
+const byggProduktSida = (id) => {
+    const produkten = produktListan.getProd(id);
+    const produktnamnet = document.querySelector("#produktnamn");
+    const produktbilden = document.querySelector("#produktbild");
+    const produktbeskrivningen = document.querySelector("#produktbeskrivning");
+    const produktpriset = document.querySelector("#produktpris");
+    produktnamnet.textContent = produkten.getNamn();
+    produktbilden.setAttribute(
+        "src",
+        "img" + id.toString().padStart(5, "0") + ".png"
+    );
+    produktbilden.setAttribute("alt", produkten.getNamn());
+    produktbeskrivningen.textContent = produkten.getBeskrivning();
+    produktpriset.textContent = produkten.getPris() + " kr";
+};
+window.addEventListener("load", (event) => {
+    const produktListan = new ProduktLista();
+    const varukorgen = new Varukorg(produktListan);
+});
