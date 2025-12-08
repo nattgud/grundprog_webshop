@@ -1,3 +1,5 @@
+const category = window.location.href.split("?")[1].split("=")[1];
+
 class Product {
     //@ts-check
     /**
@@ -37,7 +39,7 @@ class Product {
 class ProduktLista {
     //Skapar ett sortiment som en tom array.
     constructor() {
-        this.prodLista = [];
+        this.prodLista = db;
     }
 
     populera() {
