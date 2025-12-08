@@ -1,14 +1,86 @@
 <!DOCTYPE html>
 <html lang="sv">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Webshop</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-		<link rel="stylesheet" href="style.css">
-		<script src="app.js"></script>
-	</head>
-	<body>
-		
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Webshop</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <!-- <link rel="stylesheet" href="basicstyle.css" /> -->
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="hambmenu">
+                <button class="hamburger-menu">
+                    <span class="material-symbols-outlined"> menu </span>
+                </button>
+            </div>
+
+            <div class="headerlogo">
+                <h1>
+                    <a href="index.html">
+                        <img
+                            src="images/Logga-Symbol-small.png"
+                            alt="Symbol-logga"
+                            id="logga-symbol" />
+                        <img
+                            src="images/Logga-Text.png"
+                            alt="Things-Tech"
+                            id="logga-text"
+                    /></a>
+                </h1>
+            </div>
+            <nav id="topnav">
+                <ul>
+                    <li><a href="indexkat.html">Laptops</a></li>
+                    <li><a href="indexkat.html">Smartphones</a></li>
+                    <li><a href="indexkat.html">Nätverk</a></li>
+                    <li><a href="indexkat.html">Tillbehör</a></li>
+                </ul>
+            </nav>
+            <div id="varukorg">
+                <button class="shopping-cart-button">
+                    <span class="material-symbols-outlined">
+                        shopping_cart
+                    </span>
+                </button>
+            </div>
+        </header>
+        <!--         <nav id="navbar">
+            <ul>
+                <li>Huvudsida</li>
+                <li><a href="indexkat.html">Laptops</a></li>
+                <li><a href="indexkat.html">Smartphones</a></li>
+                <li><a href="indexkat.html">Tillbehör</a></li>
+            </ul>
+        </nav> -->
+        <main>
+            <div class="gallery">
+                <div class="main-item">
+                    <div class="main-header">Laptops</div>
+                    <div class="main-picture">
+                        <span class="material-symbols-outlined">
+                            laptop_windows
+                        </span>
+                    </div>
+                </div>
+                <div class="main-item">
+                    <div class="main-header">Smartphones</div>
+                    <div class="main-picture">
+                        <span class="material-symbols-outlined"> mobile </span>
+                    </div>
+                </div>
+                <div class="main-item">
+                    <div class="main-header">Tillbehör</div>
+                    <div class="main-picture">
+                        <span class="material-symbols-outlined"> cable </span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>

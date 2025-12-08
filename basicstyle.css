@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    color: #cdd4ff;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.headerlogo {
+    align-content: center;
+}
+
+#logga-text {
+    @media (width<460px) {
+        display: none;
+    }
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    align-content: center;
+}
+nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-content: center;
+    list-style: none;
+    margin: 0;
+    gap: 1em;
+}
+
+#topnav {
+    @media (width<750px) {
+        display: none;
+    }
+}
+
+.hambmenu {
+    @media (width>749px) {
+        display: none;
+    }
+}
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 90%;
+}
+
+.main-item {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #cdd4ff;
+    border-radius: 1em;
+    justify-content: space-around;
+    align-self: center;
+    padding: 1em;
+    margin: 1em;
+    width: 250px;
+}
+
+.main-header,
+.main-picture {
+    align-self: center;
+}
+
+.itemcard {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #cdd4ff;
+    border-radius: 1em;
+    justify-content: space-around;
+    align-self: center;
+    padding: 1em;
+    margin: 1em;
+    width: 250px;
+}
+
+.card-header,
+.card-picture {
+    align-self: center;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
