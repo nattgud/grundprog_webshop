@@ -314,3 +314,14 @@ nav ul li a:hover {
 .buy-button:hover {
     background-color: var(--green-transparent);
 }
+
+#varukorg {
+    position: relative;
+}
+
+#shopping-cart-modal {
+    margin: 0;
+    position: absolute;
+    left: -55px;
+    top: 110px;
+}
