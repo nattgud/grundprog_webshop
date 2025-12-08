@@ -1,5 +1,3 @@
-const category = window.location.href.split("?")[1].split("=")[1];
-
 class Product {
     //@ts-check
     /**
@@ -152,6 +150,15 @@ class Varukorg {
 
     tomKorg = () => (this.korg = []); //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
 }
-
-const produktListan = new ProduktLista();
-const varukorgen = new Varukorg(produktListan);
+window.addEventListener("load", (event) => {
+    if (window.location.href.includes("?")) {
+        const category = window.location.href.split("?")[1].split("=")[1];
+    }
+    const produktListan = new ProduktLista();
+    const varukorgen = new Varukorg(produktListan);
+    const hambutton = document.querySelector(".hamburger-menu");
+    const hammenu = document.querySelector(".hamcontent");
+    hambutton.addEventListener("click", (e) => {
+        hammenu.show();
+    });
+});
