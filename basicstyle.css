@@ -48,7 +48,7 @@ nav ul {
     }
 }
 
-#navbar {
+.hambmenu {
     @media (width>749px) {
         display: none;
     }
