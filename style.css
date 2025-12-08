@@ -26,6 +26,8 @@ body {
 	height: 100vh;
 	background: var(--body-background);
     color: var(--text-color);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 /* default content styling (padding+centering) */
 main,footer {
