@@ -2,12 +2,15 @@
     box-sizing: border-box;
 }
 
-/*  */
+/* colors to work with and add to */
 :root {
     --pinkish-color: #ca1c8a;
-    --dark-blue: #11152b;
-    --text-color: #cdd4ff;
-    --color-gradient1: linear-gradient(to right, #11152b, #90276b);
+    --dark-blue: #11152B;
+    --text-color: #CDD4FF;
+    --bright-green: #06b400;
+    --dark-green: #167e13;
+    --green-transparent: #6aff658a;
+    --color-gradient1: linear-gradient(to right, #11152B, #90276B);
     --color-gradient2: radial-gradient(#ffffff5b, #90276b00 40%, transparent);
     --body-background: linear-gradient(#11152b, #252e5e 70%);
     --shadow-button-click: rgb(68, 68, 68);
@@ -190,4 +193,17 @@ nav ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+/* Buy or add to shopping cart button*/
+.buy-button {
+    background-color: var(--dark-green);
+    color: var(--text-color);
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.buy-button:hover {
+    background-color: var(--green-transparent);
 }
