@@ -19,7 +19,7 @@ header {
 }
 
 #logga-text {
-    @media (width<350px) {
+    @media (width<460px) {
         display: none;
     }
 }
