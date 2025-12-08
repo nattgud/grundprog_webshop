@@ -153,5 +153,65 @@ class Varukorg {
     tomKorg = () => (this.korg = []); //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
 }
 
+const byggKort = (lista, id) => {
+    const produkten = lista.getProd(id);
+    if (produkten === undefined) {
+        console.log(`Det finns ingen produkt med id {$id}!`);
+        return;
+    } else {
+        const card = document.createElement("div");
+        card.classlist.add("itemcard");
+
+        const cardheader = document.createElement("div");
+        cardheader.classlist.add("card-header");
+        const cardh2 = document.createElement("h2");
+        cardh2.textContent = produkten.getNamn();
+        cardheader.appendChild(cardh2);
+
+        const imgname = "img" + id.toString().padStart(5, "0") + ".png";
+        const cardpicture = document.createElement("div");
+        cardpicture.classlist.add("card-picture");
+
+        const cardimg = document.createElement("img");
+        cardimg.setAttribute("src", imgname);
+        cardimg.setAttribute("alt", produkten.getNamn());
+        cardimg.setAttribute("width", "200");
+        cardimg.setAttribute("height", "200");
+
+        cardpicture.appendChild(cardimg);
+
+        const cardfooter = document.createElement("div");
+        cardfooter.classlist.add("card-footer");
+
+        const cardprice = document.createElement("div");
+        cardprice.classlist.add("card-price");
+        cardprice.textContent = produkten.getPris() + " kr";
+
+        const cardbutton = document.createElement("div");
+        cardbutton.classlist.add("card-button");
+
+        const cardbuttonspan = document.createElement("span");
+        cardbuttonspan.classlist.add("material-symbols-outlined");
+        cardbuttonspan.textContent = "add_shopping_card";
+
+        cardbutton.appendChild(cardbuttonspan);
+
+        cardfooter.appendChild(cardprice);
+        cardfooter.appendChild(cardbutton);
+
+        card.appendChild(cardheader);
+        card.appendChild(cardpicture);
+        card.appendChild(cardfooter);
+
+        return card;
+    }
+};
+
+const byggGalleri = (lista, kategori) => {
+    const galleri = document.querySelector(".gallery");
+    const kategorilista = lista.getKategoriLista(kategori);
+    kategorilista.forEach((i) => galleri.appendChild(byggkort(lista, i)));
+};
+
 const produktListan = new ProduktLista();
 const varukorgen = new Varukorg(produktListan);

@@ -37,7 +37,9 @@
             <nav id="topnav">
                 <ul>
                     <li><a href="indexkat.html?p=laptop">Laptops</a></li>
-                    <li><a href="indexkat.html?p=smartphone">Smartphones</a></li>
+                    <li>
+                        <a href="indexkat.html?p=smartphone">Smartphones</a>
+                    </li>
                     <li><a href="indexkat.html?p=network">Nätverk</a></li>
                     <li><a href="indexkat.html?p=cables">Tillbehör</a></li>
                 </ul>
@@ -50,75 +52,12 @@
                 </button>
             </div>
         </header>
-        <!--         <nav id="navbar">
-            <ul>
-                <li><a href="index.html">Huvudsida</a></li>
-                <li><a href="indexkat.html">Laptops</a></li>
-                <li><a href="indexkat.html">Smartphones</a></li>
-                <li><a href="indexkat.html">Tillbehör</a></li>
-            </ul>
-        </nav>
- -->
+
         <main>
-            <div class="gallery">
-                <div class="itemcard">
-                    <div class="card-header"><h2>Smartphone 0</h2></div>
-                    <div class="card-picture">
-                        <img
-                            src="images/smartphone_0.png"
-                            alt="Smartphone 0"
-                            width="200"
-                            height="200"
-                        />
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">1000 kr</div>
-                        <div class="card-button">
-                            <span class="material-symbols-outlined">
-                                add_shopping_cart
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="itemcard">
-                    <div class="card-header"><h2>Smartphone 1</h2></div>
-                    <div class="card-picture">
-                        <img
-                            src="images/smartphone_1.png"
-                            alt="Smartphone 1"
-                            width="200"
-                            height="200"
-                        />
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">2000 kr</div>
-                        <div class="card-button">
-                            <span class="material-symbols-outlined">
-                                add_shopping_cart
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="itemcard">
-                    <div class="card-header"><h2>Smartphone 2</h2></div>
-                    <div class="card-picture">
-                        <img
-                            src="images/smartphone_2.png"
-                            alt="Smartphone 2"
-                            width="200"
-                            height="200"
-                        />
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">3000 kr</div>
-                        <div class="card-button">
-                            <span class="material-symbols-outlined">
-                                add_shopping_cart
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="gallery"></div>
         </main>
+        <script>
+            byggGalleri(produktListan, category);
+        </script>
     </body>
 </html>
