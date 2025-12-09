@@ -55,6 +55,33 @@
 
         <main>
             <div class="gallery"></div>
+            <button
+                id="visaProdSida"
+                commandfor="produktsida"
+                command="show-modal"
+            >
+                Visa produktsida
+            </button>
+            <dialog id="produktsida" closedby="any">
+                <h2 id="produktnamn">Smartphone 0</h2>
+                <img
+                    src="images/smartphone_0.png"
+                    alt=""
+                    height="400"
+                    width="400"
+                    id="produktbild"
+                />
+                <p id="produktbeskrivning">Detta är en smartphone av typ 0.</p>
+                <div id="produktfooter">
+                    <div id="produktpris">1000 kr</div>
+                    <div id="produktbuy">
+                        <input type="number" value="1" />
+                        <span class="material-symbols-outlined">
+                            add_shopping_cart
+                        </span>
+                    </div>
+                </div>
+            </dialog>
         </main>
         <script>
             byggGalleri(produktListan, category);
