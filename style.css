@@ -2,7 +2,6 @@
 * {
     box-sizing: border-box;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* colors to work with and add to */
@@ -10,12 +9,9 @@
     --pinkish-color: #ca1c8a;
     --dark-blue: #11152b;
     --text-color: #cdd4ff;
-    --dark-blue: #11152b;
-    --text-color: #cdd4ff;
     --bright-green: #06b400;
     --dark-green: #167e13;
     --green-transparent: #6aff658a;
-    --color-gradient1: linear-gradient(to right, #11152b, #90276b);
     --color-gradient1: linear-gradient(to right, #11152b, #90276b);
     --color-gradient2: radial-gradient(#ffffff5b, #90276b00 40%, transparent);
     --body-background: linear-gradient(#11152b, #252e5e 70%);
@@ -29,11 +25,6 @@ body {
     margin: 0px;
     height: 100vh;
     background: var(--body-background);
-    display: flex;
-    flex-direction: column;
-    margin: 0px;
-    height: 100vh;
-    background: var(--body-background);
     color: var(--text-color);
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -42,18 +33,13 @@ body {
 main,
 footer {
     padding: 10px;
-main,
-footer {
-    padding: 10px;
 }
 /* main fill rest of content (vertical) */
 main {
     flex: 1 0 10px;
-    flex: 1 0 10px;
 }
 /* center content */
 footer {
-    text-align: center;
     text-align: center;
 }
 
@@ -67,7 +53,6 @@ header nav ul li a:hover {
     color: var(--text-color);
     height: 100px;
     width: 100px;
-    /* border: none; */
     cursor: pointer;
 }
 /* grow in size and change color */
@@ -77,9 +62,8 @@ ul .category-button:hover {
     font-size: 1.2rem;
     font-weight: bold;
     border: 5px solid var(--dark-blue);
-    /* transition: all 0.3s ease; */
-    /* transform: scale(1.1, 1.1); */
-    /* margin-top: 5px; */
+    outline: 1px solid #fff;
+    outline-width: 0px 0px 0px 1px;
 }
 /* Give a light shadow for clicking down appearence */
 .category-button:active {
@@ -169,10 +153,7 @@ header {
 }
 
 /* logo sizing */
-.headerlogo img:first-of-type {
-    height: 50px;
-}
-.headerlogo img:last-of-type {
+.headerlogo img:first-of-type, .headerlogo img:last-of-type {
     height: 50px;
 }
 
@@ -197,10 +178,8 @@ header {
     flex-direction: row;
     flex-grow: 1;
     height: 100%;
-    height: 100%;
     align-content: center;
     margin: 0;
-    padding: 0;
     padding: 0;
 }
 
@@ -216,7 +195,7 @@ header {
 }
 
 /* border between menu items */
-#topnav ul li:not(:first-of-type) {
+#topnav ul li:not(:hover):not(:first-of-type) {
     border-left: 1px solid #fff;
 }
 
@@ -269,45 +248,39 @@ nav ul li a {
     gap: 5vw;
 }
 /* category items (flex, cursor, hover) */
-.main-item {
+.main-item, .itemcard {
     display: flex;
     flex-direction: row;
     border-radius: 1em;
     justify-content: space-around;
     padding: 1em;
     margin: 1em;
-    /* width: 250px; */
     flex: 1 1 250px;
     cursor: pointer;
     border: 1px solid var(--pinkish-color);
-    background-color: rgba(0, 0, 0, 0);
-    transition: background-color 200ms;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 200ms, color 200ms;
 }
-.gallery .main-item:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+.gallery .main-item:hover, .gallery .itemcard:hover {
+    color: #fff;
+	background-color: rgba(0, 0, 0, 0.5);
 }
-
+.itemcard {
+    flex-direction: column;
+    flex: 0 1 250px;
+}
+.itemcard .card-picture img {
+    width: 100%;
+    border-radius: 3px;
+}
+.card-header,
+.card-picture {
+    align-self: center;
+}
 .main-header,
 .main-picture {
     align-self: center;
 }
-
-.itemcard {
-    display: flex;
-    flex-direction: column;
-    border: 2px solid #cdd4ff;
-    border-radius: 1em;
-    justify-content: space-around;
-    align-self: center;
-    padding: 1em;
-    margin: 1em;
-    width: 250px;
-}
-
-/* .card-header,
-.card-picture {
-    align-self: center;
-} */
 /* centering and font size for responsive layout */
 .gallery .main-item .main-header {
     display: flex;
