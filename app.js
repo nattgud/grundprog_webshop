@@ -272,10 +272,6 @@ window.addEventListener("load", () => {
     hambutton.addEventListener("click", (e) => {
         hammenu.show();
     });
-    if (window.location.href.includes("?")) {
-        const category = window.location.href.split("?")[1].split("=")[1];
-        byggGalleri(produktListan, category);
-    }
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
@@ -289,12 +285,18 @@ window.addEventListener("load", () => {
         alert("Du har handlat");
     });
 
-    kategoriNamn = {
+    const kategoriNamn = {
         laptop:     "Bärbart",
         smartphone: "Mobil",
         network:    "Nätverk",
         cables:     "Övrigt"
     };
+    const kategoriIkoner = {
+        laptop:     "laptop_windows",
+        smartphone: "mobile",
+        network:    "wifi",
+        cables:     "cable"
+    }
     const kategoriLista = [];
     produktListan.prodLista.forEach(product => {
         if(kategoriLista.indexOf(product.kategori) === -1) {
@@ -336,5 +338,25 @@ window.addEventListener("load", () => {
         }
         document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
     }
-    console.log("list", kategoriLista);
+    if (window.location.href.includes("?")) {
+        const category = window.location.href.split("?")[1].split("=")[1];
+        byggGalleri(produktListan, category);
+    } else {
+        kategoriLista.forEach(cat => {
+            const item = document.createElement("DIV");
+            item.classList.add("main-item");
+            const itemHeader = document.createElement("DIV");
+            itemHeader.classList.add("main-header");
+            itemHeader.textContent = kategoriNamn[cat];
+            const itemIconContainer = document.createElement("DIV");
+            itemIconContainer.classList.add("main-picture");
+            const itemIcon = document.createElement("SPAN");
+            itemIcon.classList.add("material-symbols-outlined");
+            itemIcon.textContent = kategoriIkoner[cat];
+            itemIconContainer.appendChild(itemIcon);
+            item.appendChild(itemHeader);
+            item.appendChild(itemIconContainer);
+            document.querySelector(".gallery").appendChild(item);
+        });
+    }
 });
