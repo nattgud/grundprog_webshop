@@ -168,7 +168,7 @@ const byggKort = (lista, id) => {
         cardh2.textContent = produkten.getNamn();
         cardheader.appendChild(cardh2);
 
-        const imgname = "img" + id.toString().padStart(5, "0") + ".png";
+        const imgname = id + ".png";
         const cardpicture = document.createElement("div");
         cardpicture.classlist.add("card-picture");
 
