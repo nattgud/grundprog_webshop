@@ -282,20 +282,35 @@ window.addEventListener("load", () => {
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
         byggGalleri(produktListan, category);
+
+        // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
+        const produktAddToCartButton = document.querySelector(
+            "#produktAddToCartButton"
+        );
+        const produktAddToCartValue = document.querySelector(
+            "#produktAddToCartValue"
+        );
+        const produktId = document.querySelector("#produktid");
+
+        // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen.
+        produktAddToCartButton.addEventListener("click", () => {
+            varukorgen.laggIKorg(
+                produktId.textContent,
+                Number(produktAddToCartValue.value)
+            );
+            console.log(
+                Number(produktAddToCartValue.value) +
+                    " st id " +
+                    produktId.textContent +
+                    " lagd i korg."
+            );
+            console.log(varukorgen.korg);
+        });
     }
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
     const addToCartButton = document.querySelector(".add-to-cart");
-
-    // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
-    const produktAddToCartButton = document.querySelector(
-        "#produktAddToCartButton"
-    );
-    const produktAddToCartValue = document.querySelector(
-        "#produktAddToCartValue"
-    );
-    const produktId = document.querySelector("#produktid");
 
     shoppingCartButton.addEventListener("click", (e) => {
         cartMenu.show();
@@ -308,19 +323,4 @@ window.addEventListener("load", () => {
     /*     addToCartButton.addEventListener("click", (e) => {
         alert("hej");
     }); */
-
-    // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen.
-    produktAddToCartButton.addEventListener("click", () => {
-        varukorgen.laggIKorg(
-            produktId.textContent,
-            Number(produktAddToCartValue.value)
-        );
-        console.log(
-            Number(produktAddToCartValue.value) +
-                " st id " +
-                produktId.textContent +
-                " lagd i korg."
-        );
-        console.log(varukorgen.korg);
-    });
 });
