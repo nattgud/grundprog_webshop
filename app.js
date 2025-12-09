@@ -289,7 +289,52 @@ window.addEventListener("load", () => {
         alert("Du har handlat");
     });
 
-    /*     addToCartButton.addEventListener("click", (e) => {
-        alert("hej");
-    }); */
+    kategoriNamn = {
+        laptop:     "Bärbart",
+        smartphone: "Mobil",
+        network:    "Nätverk",
+        cables:     "Övrigt"
+    };
+    const kategoriLista = [];
+    produktListan.prodLista.forEach(product => {
+        if(kategoriLista.indexOf(product.kategori) === -1) {
+            kategoriLista.push(product.kategori);
+        }
+    });
+    const addMainMenuButton = (cat, subMenu = false) => {
+        const li = document.createElement("LI");
+        li.classList.add("category-button");
+        const a = document.createElement("A");
+        a.textContent = (kategoriNamn[cat] !== undefined)?kategoriNamn[cat]:cat;
+        if(subMenu === false) a.href = "indexkat.html?p="+cat;
+        li.appendChild(a);
+        if(subMenu !== false) {
+            const subMenuElement = document.createElement("DIALOG");
+            subMenuElement.classList.add("subMenu");
+            subMenuElement.closedBy = "any";
+            const subMenuUl = document.createElement("UL");
+            subMenu.forEach(subMenuItem => {
+                subMenuUl.appendChild(addMainMenuButton(subMenuItem));
+            })
+            subMenuElement.appendChild(subMenuUl);
+            li.appendChild(subMenuElement);
+            li.style.position = "relative";
+            a.addEventListener("click", () => {
+                subMenuElement.show();
+            });
+        }
+        return li;
+    }
+    if(kategoriLista.length <= 4) {
+        kategoriLista.forEach(cat => {
+            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(cat));
+        });
+    } else {
+        for(let c = 0; c < 3; c++) {
+            console.log(kategoriLista[Object.keys(kategoriLista)[c]]);
+            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(kategoriLista[Object.keys(kategoriLista)[c]]));
+        }
+        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
+    }
+    console.log("list", kategoriLista);
 });

@@ -56,7 +56,7 @@ header nav ul li a:hover {
     cursor: pointer;
 }
 /* grow in size and change color */
-ul .category-button:hover {
+ul#top-nav-list > .category-button:hover {
     background: var(--text-color);
     color: var(--dark-blue);
     font-size: 1.2rem;
@@ -64,6 +64,16 @@ ul .category-button:hover {
     border: 5px solid var(--dark-blue);
     outline: 1px solid #fff;
     outline-width: 0px 0px 0px 1px;
+}
+ul#top-nav-list .category-button:hover a {
+    font-weight: normal;
+    color: var(--dark-blue);
+}
+ul#top-nav-list .category-button:hover .category-button a {
+    color: var(--text-color);
+}
+ul#top-nav-list .category-button:hover .category-button a:focus {
+    outline: none;
 }
 /* Give a light shadow for clicking down appearence */
 .category-button:active {
@@ -124,10 +134,22 @@ ul .category-button:hover {
     transform: scale(1.3, 1.3);
 }
 
-.hamcontent {
+.hamcontent, .subMenu {
     margin: 0px;
     transition: all 0.3s ease;
     background: var(--color-gradient1);
+}
+.subMenu {
+    top: 100%;
+}
+li:hover > .subMenu {
+    display: block;
+}
+.subMenu ul {
+    padding: 0px;
+}
+.subMenu li {
+    height: auto;
 }
 
 /* Flex on header element with space-between for a spacious layout */
@@ -173,7 +195,7 @@ header {
     flex: 0.5 1 100px;
 }
 /* replace default styling with flex */
-#topnav ul {
+#topnav > ul {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
@@ -195,12 +217,12 @@ header {
 }
 
 /* border between menu items */
-#topnav ul li:not(:hover):not(:first-of-type) {
+#topnav > ul > li:not(:hover):not(:first-of-type) {
     border-left: 1px solid #fff;
 }
 
 /* border between menu items in hamburger menu */
-#hamnav ul li:not(:first-of-type) {
+#hamnav > ul > li:not(:first-of-type) {
     border-top: 1px solid #fff;
 }
 
@@ -232,7 +254,7 @@ nav ul li a {
     transition: text-shadow 200ms, color 200ms;
 }
 /* menu item hover effect (text light up) */
-#hamnav ul li a:hover {
+#hamnav ul li a:hover, .subMenu li a:hover {
     color: #fff;
     text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 20px #fff,
         0px 0px 40px #fff;
