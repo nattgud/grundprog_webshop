@@ -1,5 +1,3 @@
-const category = window.location.href.split("?")[1].split("=")[1];
-
 class Product {
     //@ts-check
     /**
@@ -153,5 +151,28 @@ class Varukorg {
     tomKorg = () => (this.korg = []); //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
 }
 
-const produktListan = new ProduktLista();
-const varukorgen = new Varukorg(produktListan);
+window.addEventListener("load", (event) => {
+    if (window.location.href.includes("?")) {
+        const category = window.location.href.split("?")[1].split("=")[1];
+    }
+    const produktListan = new ProduktLista();
+    const varukorgen = new Varukorg(produktListan);
+    const shoppingCartButton = document.querySelector(".shopping-cart-button");
+    const cartMenu = document.querySelector(".cart-content");
+    const buyButtonNow = document.querySelector("#payNow");
+    const addToCartButton = document.querySelector(".add-to-cart")
+
+    shoppingCartButton.addEventListener("click", (e) => {
+        cartMenu.show();
+    });
+
+    buyButtonNow.addEventListener("click", (e) => {
+        alert("Du har handlat");
+    });
+
+    addToCartButton.addEventListener("click", (e) => {
+        alert("hej");
+    });
+
+
+});
