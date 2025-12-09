@@ -248,7 +248,9 @@ window.addEventListener("load", () => {
         console.log(kategorilista);
         kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
     };
+
     const byggProduktSida = (id) => {
+        // Bygger upp dialogrutan som poppar upp när man klickar på en bild i produktgalleriet genom att stoppa in värden i den existerande dialogrutans fält.
         const produkten = produktListan.getProd(id);
         const produktnamnet = document.querySelector("#produktnamn");
         const produktbilden = document.querySelector("#produktbild");
@@ -256,13 +258,18 @@ window.addEventListener("load", () => {
             "#produktbeskrivning"
         );
         const produktpriset = document.querySelector("#produktpris");
+        const produktantal = document.querySelector("#produktAddToCartValue");
+        const produktid = document.querySelector("#produktid");
         produktnamnet.textContent = produkten.getNamn();
         produktbilden.setAttribute("src", "images/" + id + ".png");
         produktbilden.setAttribute("alt", produkten.getNamn());
         produktbeskrivningen.textContent = produkten.getBeskrivning();
         produktpriset.textContent = produkten.getPris() + " kr";
+        produktantal.value = 1;
+        produktid.textContent = id;
         produktsidan.showModal();
     };
+
     const produktListan = new ProduktLista();
     console.log(produktListan);
     const varukorgen = new Varukorg(produktListan);
@@ -281,6 +288,15 @@ window.addEventListener("load", () => {
     const buyButtonNow = document.querySelector("#payNow");
     const addToCartButton = document.querySelector(".add-to-cart");
 
+    // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
+    const produktAddToCartButton = document.querySelector(
+        "#produktAddToCartButton"
+    );
+    const produktAddToCartValue = document.querySelector(
+        "#produktAddToCartValue"
+    );
+    const produktId = document.querySelector("#produktid");
+
     shoppingCartButton.addEventListener("click", (e) => {
         cartMenu.show();
     });
@@ -292,4 +308,19 @@ window.addEventListener("load", () => {
     /*     addToCartButton.addEventListener("click", (e) => {
         alert("hej");
     }); */
+
+    // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen.
+    produktAddToCartButton.addEventListener("click", () => {
+        varukorgen.laggIKorg(
+            produktId.textContent,
+            Number(produktAddToCartValue.value)
+        );
+        console.log(
+            Number(produktAddToCartValue.value) +
+                " st id " +
+                produktId.textContent +
+                " lagd i korg."
+        );
+        console.log(varukorgen.korg);
+    });
 });
