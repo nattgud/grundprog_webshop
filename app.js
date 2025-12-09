@@ -2,7 +2,7 @@ class Product {
     //@ts-check
     /**
      * Skapar ett objekt med ett id-nummer, namn, kategori, och pris.
-     * @param {Number} id
+     * @param {String} id
      * @param {String} namn
      * @param {String} kategori
      * @param {Number} pris
@@ -46,8 +46,8 @@ class ProduktLista {
         // populate productList from db-variable
         for(let cat in db) {
             const productList = db[cat];
-            productList.forEach((product, pid) => {
-                this.addProd(cat+"_"+pid, product.name, cat, product.price, product.description);
+            productList.forEach((product, pIndex) => {
+                this.addProd(cat + "_" + pIndex, product.name, cat, product.price, product.description);
             });
         };
     }
