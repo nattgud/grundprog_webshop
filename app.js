@@ -13,6 +13,7 @@ class Product {
         this.namn = namn;
         this.kategori = kategori;
         this.pris = pris;
+        this.beskrivning = beskrivning;
     }
 
     setNamn = (namn) => (this.namn = namn);
@@ -37,11 +38,18 @@ class Product {
 class ProduktLista {
     //Skapar ett sortiment som en tom array.
     constructor() {
-        this.prodLista = db;
+        this.prodLista = [];
+        this.populera();    // populate prodLista
     }
 
     populera() {
-        //Här ska vi ha en rutin för att läsa in en JSON-fil med sortimentet. Alternativt kanske det kan vara en del av konstruktorn?
+        // populate productList from db-variable
+        for(let cat in db) {
+            const productList = db[cat];
+            productList.forEach((product, pid) => {
+                this.addProd(cat+"_"+pid, product.name, cat, product.price, product.description);
+            });
+        };
     }
 
     // Lägger till en produkt i sortimentet med id, namn, kategori, och pris.
