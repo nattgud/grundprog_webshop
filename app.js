@@ -92,7 +92,7 @@ class ProduktLista {
 class Varukorg {
     //Skapar en tom varukorg som en tom array. Arrayen ska sedan innehålla objekt på formen {id, antal}. Varukorgen är även länkad till ett visst sortiment.
     constructor(prodLista) {
-        this.korg = [];
+        this.korg = (this.getSparadVarukorg() === null)?[]:this.getSparadVarukorg();
         this.prodLista = prodLista;
     }
 
@@ -122,6 +122,7 @@ class Varukorg {
         } else {
             i.antal += antal;
         }
+        this.updSparadVarukorg();
     };
 
     taUrKorg = (id, antal) => {
@@ -132,6 +133,7 @@ class Varukorg {
         } else {
             i.antal = Math.max(0, i.antal - antal);
         }
+        this.updSparadVarukorg();
     };
 
     delSumma = (id) => {
@@ -162,7 +164,17 @@ class Varukorg {
         return total;
     };
 
-    tomKorg = () => (this.korg = []); //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
+    tomKorg = () => {
+        this.korg = [];
+        this.updSparadVarukorg();
+    }; //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
+
+    updSparadVarukorg = () => {
+        localStorage.setItem("cart", JSON.stringify(this.korg));
+    }
+    getSparadVarukorg = () => {
+        return JSON.parse(localStorage.getItem("cart"));
+    }
 }
 const byggProduktSida = (id) => {
     const produkten = produktListan.getProd(id);
