@@ -83,7 +83,7 @@ class ProduktLista {
     getKategoriLista = (kat) => {
         const lista = [];
         this.prodLista.forEach((i) => {
-            if (i.kategori === "kat") lista.push(i.id);
+            if (i.kategori === kat) lista.push(i.id);
         });
         return lista;
     };
@@ -178,22 +178,8 @@ class Varukorg {
         return JSON.parse(localStorage.getItem("cart"));
     };
 }
-const byggProduktSida = (id) => {
-    const produkten = produktListan.getProd(id);
-    const produktnamnet = document.querySelector("#produktnamn");
-    const produktbilden = document.querySelector("#produktbild");
-    const produktbeskrivningen = document.querySelector("#produktbeskrivning");
-    const produktpriset = document.querySelector("#produktpris");
-    produktnamnet.textContent = produkten.getNamn();
-    produktbilden.setAttribute("src", id + ".png");
-    produktbilden.setAttribute("alt", produkten.getNamn());
-    produktbeskrivningen.textContent = produkten.getBeskrivning();
-    produktpriset.textContent = produkten.getPris() + " kr";
-};
+
 window.addEventListener("load", () => {
-    if (window.location.href.includes("?")) {
-        const category = window.location.href.split("?")[1].split("=")[1];
-    }
     const byggKort = (lista, id) => {
         const produkten = lista.getProd(id);
         if (produkten === undefined) {
@@ -201,17 +187,17 @@ window.addEventListener("load", () => {
             return;
         } else {
             const card = document.createElement("div");
-            card.classlist.add("itemcard");
+            card.classList.add("itemcard");
 
             const cardheader = document.createElement("div");
-            cardheader.classlist.add("card-header");
+            cardheader.classList.add("card-header");
             const cardh2 = document.createElement("h2");
             cardh2.textContent = produkten.getNamn();
             cardheader.appendChild(cardh2);
 
-            const imgname = id + ".png";
+            const imgname = "images/" + id + ".png";
             const cardpicture = document.createElement("div");
-            cardpicture.classlist.add("card-picture");
+            cardpicture.classList.add("card-picture");
 
             const cardimg = document.createElement("img");
             cardimg.setAttribute("src", imgname);
@@ -220,25 +206,31 @@ window.addEventListener("load", () => {
             cardimg.setAttribute("height", "200");
 
             cardpicture.appendChild(cardimg);
+            cardpicture.addEventListener("click", () => byggProduktSida(id));
 
             const cardfooter = document.createElement("div");
-            cardfooter.classlist.add("card-footer");
+            cardfooter.classList.add("card-footer");
 
             const cardprice = document.createElement("div");
-            cardprice.classlist.add("card-price");
+            cardprice.classList.add("card-price");
             cardprice.textContent = produkten.getPris() + " kr";
 
             const cardbutton = document.createElement("div");
-            cardbutton.classlist.add("card-button");
+            cardbutton.classList.add("buy-button");
 
             const cardbuttonspan = document.createElement("span");
-            cardbuttonspan.classlist.add("material-symbols-outlined");
-            cardbuttonspan.textContent = "add_shopping_card";
+            cardbuttonspan.classList.add("material-symbols-outlined");
+            cardbuttonspan.textContent = "add_shopping_cart";
 
             cardbutton.appendChild(cardbuttonspan);
 
             cardfooter.appendChild(cardprice);
             cardfooter.appendChild(cardbutton);
+            cardbutton.addEventListener("click", () => {
+                varukorgen.laggIKorg(id, 1);
+                console.log("id " + id + " lagd i korg.");
+                console.log(varukorgen.korg);
+            });
 
             card.appendChild(cardheader);
             card.appendChild(cardpicture);
@@ -250,18 +242,40 @@ window.addEventListener("load", () => {
 
     const byggGalleri = (lista, kategori) => {
         const galleri = document.querySelector(".gallery");
+        console.log(galleri);
+        console.log(lista);
         const kategorilista = lista.getKategoriLista(kategori);
-        kategorilista.forEach((i) => galleri.appendChild(byggkort(lista, i)));
+        console.log(kategorilista);
+        kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
     };
-
+    const byggProduktSida = (id) => {
+        const produkten = produktListan.getProd(id);
+        const produktnamnet = document.querySelector("#produktnamn");
+        const produktbilden = document.querySelector("#produktbild");
+        const produktbeskrivningen = document.querySelector(
+            "#produktbeskrivning"
+        );
+        const produktpriset = document.querySelector("#produktpris");
+        produktnamnet.textContent = produkten.getNamn();
+        produktbilden.setAttribute("src", "images/" + id + ".png");
+        produktbilden.setAttribute("alt", produkten.getNamn());
+        produktbeskrivningen.textContent = produkten.getBeskrivning();
+        produktpriset.textContent = produkten.getPris() + " kr";
+        produktsidan.showModal();
+    };
     const produktListan = new ProduktLista();
+    console.log(produktListan);
     const varukorgen = new Varukorg(produktListan);
+    const produktsidan = document.querySelector("#produktsida");
     const hambutton = document.querySelector(".hamburger-menu");
     const hammenu = document.querySelector(".hamcontent");
     hambutton.addEventListener("click", (e) => {
         hammenu.show();
     });
-
+    if (window.location.href.includes("?")) {
+        const category = window.location.href.split("?")[1].split("=")[1];
+        byggGalleri(produktListan, category);
+    }
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
@@ -275,7 +289,7 @@ window.addEventListener("load", () => {
         alert("Du har handlat");
     });
 
-    addToCartButton.addEventListener("click", (e) => {
+    /*     addToCartButton.addEventListener("click", (e) => {
         alert("hej");
-    });
+    }); */
 });
