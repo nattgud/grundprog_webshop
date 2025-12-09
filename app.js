@@ -126,12 +126,13 @@ class Varukorg {
     };
 
     taUrKorg = (id, antal) => {
-        // Hämta raden i varukorgen med ett visst id. Om det inte finns, avsluta. Annars, minska antalet på den raden med antal fast som lägst till 0
+        // Hämta raden i varukorgen med ett visst id. Om det inte finns, avsluta. Annars, kolla om minskningsantalet är lägre än det befintliga antalet. I så fall, minska befintligt antal med minskningsantalet. Om minskningsantalet är >= det befintliga antalet, ta bort raden helt från korgen.
         const i = this.getVara(id);
         if (i === undefined) {
             return;
         } else {
-            i.antal = Math.max(0, i.antal - antal);
+            if (antal < i.antal) i.antal -= antal;
+            else this.korg.splice(this.indexVara(id), 1);
         }
         this.updSparadVarukorg();
     };
