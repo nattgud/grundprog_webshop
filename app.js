@@ -160,10 +160,7 @@ const byggProduktSida = (id) => {
     const produktbeskrivningen = document.querySelector("#produktbeskrivning");
     const produktpriset = document.querySelector("#produktpris");
     produktnamnet.textContent = produkten.getNamn();
-    produktbilden.setAttribute(
-        "src",
-        "img" + id.toString().padStart(5, "0") + ".png"
-    );
+    produktbilden.setAttribute("src", id + ".png");
     produktbilden.setAttribute("alt", produkten.getNamn());
     produktbeskrivningen.textContent = produkten.getBeskrivning();
     produktpriset.textContent = produkten.getPris() + " kr";
