@@ -39,17 +39,23 @@ class ProduktLista {
     //Skapar ett sortiment som en tom array.
     constructor() {
         this.prodLista = [];
-        this.populera();    // populate prodLista
+        this.populera(); // populate prodLista
     }
 
     populera() {
         // populate productList from db-variable
-        for(let cat in db) {
+        for (let cat in db) {
             const productList = db[cat];
             productList.forEach((product, pIndex) => {
-                this.addProd(cat + "_" + pIndex, product.name, cat, product.price, product.description);
+                this.addProd(
+                    cat + "_" + pIndex,
+                    product.name,
+                    cat,
+                    product.price,
+                    product.description
+                );
             });
-        };
+        }
     }
 
     // Lägger till en produkt i sortimentet med id, namn, kategori, och pris.
@@ -158,17 +164,22 @@ class Varukorg {
 
     tomKorg = () => (this.korg = []); //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
 }
-
-window.addEventListener("load", (event) => {
+window.addEventListener("load", () => {
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
     }
     const produktListan = new ProduktLista();
     const varukorgen = new Varukorg(produktListan);
+    const hambutton = document.querySelector(".hamburger-menu");
+    const hammenu = document.querySelector(".hamcontent");
+    hambutton.addEventListener("click", (e) => {
+        hammenu.show();
+    });
+
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
-    const addToCartButton = document.querySelector(".add-to-cart")
+    const addToCartButton = document.querySelector(".add-to-cart");
 
     shoppingCartButton.addEventListener("click", (e) => {
         cartMenu.show();
@@ -181,6 +192,4 @@ window.addEventListener("load", (event) => {
     addToCartButton.addEventListener("click", (e) => {
         alert("hej");
     });
-
-
 });
