@@ -230,8 +230,47 @@ window.addEventListener("load", () => {
                 varukorgen.laggIKorg(id, 1);
                 console.log("id " + id + " lagd i korg.");
                 console.log(varukorgen.korg);
-            });
+                
+                
+                const shoppingList = document.querySelector("#shopping-cart-display-list")
+                const shoppingListItemContainer = document.createElement("div")
+                shoppingListItemContainer.classList.add("shopping-list-item-container")
+                
+                const liContainer = document.createElement("div")
+                liContainer.classList.add("liContainerDiv")
+                const liItem = document.createElement("li")
 
+                const shoppingListButtonsContainer = document.createElement("div")
+                shoppingListItemContainer.classList.add("shopping-list-buttons-container")
+
+                const subtractButton = document.createElement("button")
+                const itemAmount = document.createElement("p")
+                const addButton = document.createElement("button")
+                subtractButton.innerText = "-"
+                addButton.innerText = "+"
+                itemAmount.innerText = "1" // funkar type number här?
+
+
+                shoppingList.appendChild(shoppingListItemContainer)
+
+                shoppingListItemContainer.appendChild(liContainer)
+                shoppingListItemContainer.appendChild(shoppingListButtonsContainer)
+
+                liContainer.appendChild(liItem)
+                liItem.textContent = id
+
+                shoppingListButtonsContainer.appendChild(subtractButton)
+                shoppingListButtonsContainer.appendChild(itemAmount)
+                shoppingListButtonsContainer.appendChild(addButton)
+
+                const clearButton = document.querySelector(".clear-cart")
+                clearButton.addEventListener("click", () => {
+                    shoppingListItemContainer.remove()   
+                });
+
+            });
+            
+            
             card.appendChild(cardheader);
             card.appendChild(cardpicture);
             card.appendChild(cardfooter);
@@ -275,12 +314,16 @@ window.addEventListener("load", () => {
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
     const addToCartButton = document.querySelector(".add-to-cart");
-
-    shoppingCartButton.addEventListener("click", (e) => {
-        cartMenu.show();
+    
+    
+    
+    shoppingCartButton.addEventListener("click", () => {
+        cartMenu.show()
     });
 
-    buyButtonNow.addEventListener("click", (e) => {
+    
+
+    buyButtonNow.addEventListener("click", () => {
         alert("Du har handlat");
     });
 
