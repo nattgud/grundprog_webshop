@@ -279,6 +279,8 @@ nav ul li a {
     margin: 1em;
     flex: 1 1 250px;
     cursor: pointer;
+    color: var(--text-color);
+    text-decoration: none;
     border: 1px solid var(--pinkish-color);
     background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 200ms, color 200ms;

@@ -264,11 +264,10 @@ window.addEventListener("load", () => {
         produktsidan.showModal();
     };
     const produktListan = new ProduktLista();
-    console.log(produktListan);
     const varukorgen = new Varukorg(produktListan);
     const produktsidan = document.querySelector("#produktsida");
     const hambutton = document.querySelector(".hamburger-menu");
-    const hammenu = document.querySelector(".hamcontent");
+    const hammenu = document.querySelector("dialog.hamcontent");
     hambutton.addEventListener("click", (e) => {
         hammenu.show();
     });
@@ -338,13 +337,15 @@ window.addEventListener("load", () => {
         }
         document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
     }
+    
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
         byggGalleri(produktListan, category);
     } else {
         kategoriLista.forEach(cat => {
-            const item = document.createElement("DIV");
+            const item = document.createElement("A");
             item.classList.add("main-item");
+            item.href = "indexkat.html?p=" + cat;
             const itemHeader = document.createElement("DIV");
             itemHeader.classList.add("main-header");
             itemHeader.textContent = kategoriNamn[cat];
