@@ -284,6 +284,7 @@ window.addEventListener("load", () => {
         alert("Du har handlat");
     });
 
+    // key-value-translation for names and icons
     const kategoriNamn = {
         laptop:     "Bärbart",
         smartphone: "Mobil",
@@ -296,6 +297,7 @@ window.addEventListener("load", () => {
         network:    "wifi",
         cables:     "cable"
     }
+    // populate categorylist
     const kategoriLista = [];
     produktListan.prodLista.forEach(product => {
         if(kategoriLista.indexOf(product.kategori) === -1) {
@@ -326,6 +328,7 @@ window.addEventListener("load", () => {
         }
         return li;
     }
+    // Populate nav with either all menuitems or a submenu if more than 4 items
     if(kategoriLista.length <= 4) {
         kategoriLista.forEach(cat => {
             document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(cat));
@@ -338,10 +341,11 @@ window.addEventListener("load", () => {
         document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
     }
     
+    // if productpage, populate productlist on page
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
         byggGalleri(produktListan, category);
-    } else {
+    } else {    // if homepage, populate category items
         kategoriLista.forEach(cat => {
             const item = document.createElement("A");
             item.classList.add("main-item");
@@ -360,4 +364,12 @@ window.addEventListener("load", () => {
             document.querySelector(".gallery").appendChild(item);
         });
     }
+    kategoriLista.forEach(cat => {
+        const li = document.createElement("LI");
+        const a = document.createElement("A");
+        a.href = "indexkat.html?p="+cat;
+        a.textContent = kategoriNamn[cat];
+        li.appendChild(a);
+        hammenu.querySelector("ul").appendChild(li);
+    });
 });
