@@ -289,14 +289,43 @@ window.addEventListener("load", () => {
         laptop:     "Bärbart",
         smartphone: "Mobil",
         network:    "Nätverk",
-        cables:     "Övrigt"
+        cables:     "Övrigt",
+        speakers:   "Högtalare",
+        tablet:     "Surfplatta",
+        desktop:    "Stationär",
+        monitor:    "Skärm",
+        storage:    "Lagring",
+        printer:    "Skrivare",
+        camera:     "Kamera",
+        audio:      "Ljud",
+        gaming:     "Gaming",
+        smarthome:  "Smarta hem",
+        software:   "Programvara",
+        tools:      "Verktyg",
+        components: "Komponenter",
+        accessories:"Tillbehör"
     };
+
     const kategoriIkoner = {
         laptop:     "laptop_windows",
         smartphone: "mobile",
         network:    "wifi",
-        cables:     "cable"
-    }
+        cables:     "cable",
+        tablet:     "tablet",
+        desktop:    "desktop_windows",
+        monitor:    "monitor",
+        storage:    "hard_drive",
+        printer:    "print",
+        camera:     "photo_camera",
+        audio:      "headphones",
+        gaming:     "sports_esports",
+        smarthome:  "home_iot_device",
+        software:   "extension",
+        tools:      "build",
+        components: "memory",
+        accessories:"widgets"
+    };
+
     // populate categorylist
     const kategoriLista = [];
     produktListan.prodLista.forEach(product => {
@@ -338,7 +367,7 @@ window.addEventListener("load", () => {
             console.log(kategoriLista[Object.keys(kategoriLista)[c]]);
             document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(kategoriLista[Object.keys(kategoriLista)[c]]));
         }
-        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
+        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.slice(3)));
     }
     
     // if productpage, populate productlist on page
@@ -368,7 +397,7 @@ window.addEventListener("load", () => {
         const li = document.createElement("LI");
         const a = document.createElement("A");
         a.href = "indexkat.html?p="+cat;
-        a.textContent = kategoriNamn[cat];
+        a.textContent = (kategoriNamn[cat] !== undefined)?kategoriNamn[cat]:cat;
         li.appendChild(a);
         hammenu.querySelector("ul").appendChild(li);
     });
