@@ -68,9 +68,19 @@
                     class="cart-content"
                     closedby="any"
                 >
-                    <h3>Varukorg:</h3>
-                    <ul></ul>
-                    <button class="buy-button" id="payNow">Betala</button>
+                    <div class="cart-modal-content">
+                        <h3>Varukorg:</h3>
+                        <ul id="shopping-cart-display-list">
+                        </ul>
+                        <div class="clear-cart-container">
+                            <button class="clear-cart" id="clear">Rensa varukorg</button>
+                        </div>
+                        <div class="totalSum-container">
+                            <h4>Totalsumma</h4>
+                            <p class="totalSum">0<span>kr</span></p>
+                        </div>
+                        <button class="buy-button" id="payNow">Betala</button>
+                    </div>
                 </dialog>
             </div>
         </header>

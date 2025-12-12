@@ -130,7 +130,7 @@ class Varukorg {
         // Hämta raden i varukorgen med ett visst id. Om det inte finns, avsluta. Annars, kolla om minskningsantalet är lägre än det befintliga antalet. I så fall, minska befintligt antal med minskningsantalet. Om minskningsantalet är >= det befintliga antalet, ta bort raden helt från korgen.
         const i = this.getVara(id);
         if (i === undefined) {
-            return;
+            return 0;
         } else {
             if (antal < i.antal) i.antal -= antal;
             else this.korg.splice(this.indexVara(id), 1);
@@ -229,7 +229,7 @@ window.addEventListener("load", () => {
             cardbutton.addEventListener("click", () => {
                 varukorgen.laggIKorg(id, 1);
                 console.log("id " + id + " lagd i korg.");
-                console.log(varukorgen.korg);
+                byggVarukorgLista();
             });
 
             card.appendChild(cardheader);
@@ -239,6 +239,77 @@ window.addEventListener("load", () => {
             return card;
         }
     };
+
+    const byggVarukorgLista = () => {
+        const shoppingList = document.querySelector(
+            "#shopping-cart-display-list"
+        ); // Hämta ul från html
+        shoppingList.innerHTML = ""; // nollställ innehåll var gång vi kör funktionen
+
+        // loop som bygger lista på nytt varje gång vi lägger till en ny produkt därför vi nollställer innehåll ovanför loop
+        for (let i = 0; i < varukorgen.korg.length; i++) {
+            const item = varukorgen.korg[i];
+            const shoppingListItemContainer = document.createElement("li");
+            shoppingListItemContainer.classList.add(
+                "shopping-list-item-container"
+            );
+
+            const liContainer = document.createElement("div");
+            liContainer.classList.add("liContainerDiv");
+
+            const shoppingListButtonsContainer = document.createElement("div");
+            shoppingListItemContainer.classList.add(
+                "shopping-list-buttons-container"
+            );
+
+            const subtractButton = document.createElement("button");
+            subtractButton.classList.add("subtractButton");
+            const itemAmount = document.createElement("p");
+            const addButton = document.createElement("button");
+            addButton.classList.add("addButton");
+            subtractButton.innerText = "-";
+            addButton.innerText = "+";
+
+            shoppingList.appendChild(shoppingListItemContainer);
+
+            shoppingListItemContainer.appendChild(liContainer);
+            shoppingListItemContainer.appendChild(shoppingListButtonsContainer);
+
+            liContainer.textContent = produktListan.getNamn(
+                varukorgen.korg[i].id
+            ); //hämta namnoch uppdatera innehåll från produktlista på nuvarande index i loopen.
+            itemAmount.innerText = varukorgen.korg[i].antal; // Hämta antalet som korgen sparat i localstorage och uppdatera innehållet i <p> alltså (itemAmount)
+
+            shoppingListButtonsContainer.appendChild(subtractButton);
+            shoppingListButtonsContainer.appendChild(itemAmount);
+            shoppingListButtonsContainer.appendChild(addButton);
+
+            addButton.addEventListener("click", () => {
+                varukorgen.laggIKorg(item.id, 1);
+                itemAmount.innerText = item.antal;
+            });
+
+            subtractButton.addEventListener("click", () => {
+                varukorgen.taUrKorg(item.id, 1);
+                const updatedItem = varukorgen.getVara(item.id);
+                console.log(updatedItem);
+
+                if (updatedItem === undefined) {
+                    shoppingListItemContainer.remove();
+                    console.log(varukorgen.korg);
+                    return;
+                } else {
+                    itemAmount.innerText = updatedItem.antal;
+                }
+            });
+        }
+    };
+
+    const clearButton = document.querySelector(".clear-cart");
+    clearButton.addEventListener("click", () => {
+        varukorgen.tomKorg();
+        byggVarukorgLista();
+    });
 
     const byggGalleri = (lista, kategori) => {
         const galleri = document.querySelector(".gallery");
@@ -326,11 +397,13 @@ window.addEventListener("load", () => {
     const buyButtonNow = document.querySelector("#payNow");
     const addToCartButton = document.querySelector(".add-to-cart");
 
-    shoppingCartButton.addEventListener("click", (e) => {
+    shoppingCartButton.addEventListener("click", () => {
         cartMenu.show();
     });
 
-    buyButtonNow.addEventListener("click", (e) => {
+    byggVarukorgLista();
+
+    buyButtonNow.addEventListener("click", () => {
         alert("Du har handlat");
     });
 
