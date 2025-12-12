@@ -490,7 +490,7 @@ window.addEventListener("load", () => {
     // if productpage, populate productlist on page
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
-        byggGalleri(produktListan, category);
+        // byggGalleri(produktListan, category);
     } else {    // if homepage, populate category items
         kategoriLista.forEach(cat => {
             const item = document.createElement("A");
