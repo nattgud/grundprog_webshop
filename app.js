@@ -177,6 +177,11 @@ class Varukorg {
     getSparadVarukorg = () => {
         return JSON.parse(localStorage.getItem("cart"));
     };
+    // Uppdatera totalt antal produkter i varukorg vid varukorgsikon
+    updCartInfo = () => {
+        document.querySelector("#cartNumber").textContent = (this.antalIKorg() === 0)?"":this.antalIKorg();
+        document.querySelector("#totalSum").textContent = (this.totalSumma() === 0)?"0":this.totalSumma();
+    };
 }
 
 window.addEventListener("load", () => {
@@ -245,7 +250,7 @@ window.addEventListener("load", () => {
             "#shopping-cart-display-list"
         ); // Hämta ul från html
         shoppingList.innerHTML = ""; // nollställ innehåll var gång vi kör funktionen
-
+        varukorgen.updCartInfo();
         // loop som bygger lista på nytt varje gång vi lägger till en ny produkt därför vi nollställer innehåll ovanför loop
         for (let i = 0; i < varukorgen.korg.length; i++) {
             const item = varukorgen.korg[i];
@@ -269,6 +274,9 @@ window.addEventListener("load", () => {
             addButton.classList.add("addButton");
             subtractButton.innerText = "-";
             addButton.innerText = "+";
+            const itemTotalCost = document.createElement("p");
+            itemTotalCost.textContent = varukorgen.delSumma(item.id);
+
 
             shoppingList.appendChild(shoppingListItemContainer);
 
@@ -276,27 +284,30 @@ window.addEventListener("load", () => {
             shoppingListItemContainer.appendChild(shoppingListButtonsContainer);
 
             liContainer.textContent = produktListan.getNamn(
-                varukorgen.korg[i].id
+                item.id
             ); //hämta namnoch uppdatera innehåll från produktlista på nuvarande index i loopen.
-            itemAmount.innerText = varukorgen.korg[i].antal; // Hämta antalet som korgen sparat i localstorage och uppdatera innehållet i <p> alltså (itemAmount)
+            itemAmount.innerText = item.antal; // Hämta antalet som korgen sparat i localstorage och uppdatera innehållet i <p> alltså (itemAmount)
 
             shoppingListButtonsContainer.appendChild(subtractButton);
             shoppingListButtonsContainer.appendChild(itemAmount);
             shoppingListButtonsContainer.appendChild(addButton);
+            
+            shoppingListButtonsContainer.appendChild(itemTotalCost);
 
             addButton.addEventListener("click", () => {
                 varukorgen.laggIKorg(item.id, 1);
+                itemTotalCost.textContent = varukorgen.delSumma(item.id);
                 itemAmount.innerText = item.antal;
+                varukorgen.updCartInfo();
             });
 
             subtractButton.addEventListener("click", () => {
                 varukorgen.taUrKorg(item.id, 1);
                 const updatedItem = varukorgen.getVara(item.id);
-                console.log(updatedItem);
-
+                itemTotalCost.textContent = varukorgen.delSumma(item.id);
+                varukorgen.updCartInfo();
                 if (updatedItem === undefined) {
                     shoppingListItemContainer.remove();
-                    console.log(varukorgen.korg);
                     return;
                 } else {
                     itemAmount.innerText = updatedItem.antal;
