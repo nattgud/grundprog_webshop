@@ -401,18 +401,49 @@ window.addEventListener("load", () => {
         alert("Du har handlat");
     });
 
+    // key-value-translation for names and icons
     const kategoriNamn = {
         laptop: "Bärbart",
         smartphone: "Mobil",
-        network: "Nätverk",
-        cables: "Övrigt",
+        network:    "Nätverk",
+        cables:     "Övrigt",
+        speakers:   "Högtalare",
+        tablet:     "Surfplatta",
+        desktop:    "Stationär",
+        monitor:    "Skärm",
+        storage:    "Lagring",
+        printer:    "Skrivare",
+        camera:     "Kamera",
+        audio:      "Ljud",
+        gaming:     "Gaming",
+        smarthome:  "Smarta hem",
+        software:   "Programvara",
+        tools:      "Verktyg",
+        components: "Komponenter",
+        accessories:"Tillbehör"
     };
+
     const kategoriIkoner = {
         laptop: "laptop_windows",
         smartphone: "mobile",
-        network: "wifi",
-        cables: "cable",
+        network:    "wifi",
+        cables:     "cable",
+        tablet:     "tablet",
+        desktop:    "desktop_windows",
+        monitor:    "monitor",
+        storage:    "hard_drive",
+        printer:    "print",
+        camera:     "photo_camera",
+        audio:      "headphones",
+        gaming:     "sports_esports",
+        smarthome:  "home_iot_device",
+        software:   "extension",
+        tools:      "build",
+        components: "memory",
+        accessories:"widgets"
     };
+
+    // populate categorylist
     const kategoriLista = [];
     produktListan.prodLista.forEach((product) => {
         if (kategoriLista.indexOf(product.kategori) === -1) {
@@ -443,49 +474,48 @@ window.addEventListener("load", () => {
             });
         }
         return li;
-    };
-    if (kategoriLista.length <= 4) {
-        kategoriLista.forEach((cat) => {
-            document
-                .querySelector("#topnav #top-nav-list")
-                .appendChild(addMainMenuButton(cat));
+    }
+    // Populate nav with either all menuitems or a submenu if more than 4 items
+    if(kategoriLista.length <= 4) {
+        kategoriLista.forEach(cat => {
+            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(cat));
         });
     } else {
-        for (let c = 0; c < 3; c++) {
-            console.log(kategoriLista[Object.keys(kategoriLista)[c]]);
-            document
-                .querySelector("#topnav #top-nav-list")
-                .appendChild(
-                    addMainMenuButton(
-                        kategoriLista[Object.keys(kategoriLista)[c]]
-                    )
-                );
+        for(let c = 0; c < 3; c++) {
+            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(kategoriLista[Object.keys(kategoriLista)[c]]));
         }
-        document
-            .querySelector("#topnav #top-nav-list")
-            .appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
+        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.slice(3)));
     }
-
+    
+    // if productpage, populate productlist on page
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
         byggGalleri(produktListan, category);
-    } else {
-        kategoriLista.forEach((cat) => {
+    } else {    // if homepage, populate category items
+        kategoriLista.forEach(cat => {
             const item = document.createElement("A");
             item.classList.add("main-item");
             item.href = "indexkat.html?p=" + cat;
             const itemHeader = document.createElement("DIV");
             itemHeader.classList.add("main-header");
-            itemHeader.textContent = kategoriNamn[cat];
+            itemHeader.textContent = (kategoriNamn[cat] !== undefined)?kategoriNamn[cat]:cat;
             const itemIconContainer = document.createElement("DIV");
             itemIconContainer.classList.add("main-picture");
             const itemIcon = document.createElement("SPAN");
             itemIcon.classList.add("material-symbols-outlined");
-            itemIcon.textContent = kategoriIkoner[cat];
+            itemIcon.textContent = (kategoriIkoner[cat] !== undefined)?kategoriIkoner[cat]:"inventory_2";
             itemIconContainer.appendChild(itemIcon);
             item.appendChild(itemHeader);
             item.appendChild(itemIconContainer);
             document.querySelector(".gallery").appendChild(item);
         });
     }
+    kategoriLista.forEach(cat => {
+        const li = document.createElement("LI");
+        const a = document.createElement("A");
+        a.href = "indexkat.html?p="+cat;
+        a.textContent = (kategoriNamn[cat] !== undefined)?kategoriNamn[cat]:cat;
+        li.appendChild(a);
+        hammenu.querySelector("ul").appendChild(li);
+    });
 });
