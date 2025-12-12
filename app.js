@@ -251,7 +251,12 @@ window.addEventListener("load", () => {
 
     const byggProduktSida = (id) => {
         // Bygger upp dialogrutan som poppar upp när man klickar på en bild i produktgalleriet genom att stoppa in värden i den existerande dialogrutans fält.
+
+        //hämtar produkten med visst ID
         const produkten = produktListan.getProd(id);
+
+        // definierar dialogen samt ingående element.
+        const produktsidan = document.querySelector("#produktsida");
         const produktnamnet = document.querySelector("#produktnamn");
         const produktbilden = document.querySelector("#produktbild");
         const produktbeskrivningen = document.querySelector(
@@ -260,6 +265,8 @@ window.addEventListener("load", () => {
         const produktpriset = document.querySelector("#produktpris");
         const produktantal = document.querySelector("#produktAddToCartValue");
         const produktid = document.querySelector("#produktid");
+
+        // sätter in värden på de ingående fälten.
         produktnamnet.textContent = produkten.getNamn();
         produktbilden.setAttribute("src", "images/" + id + ".png");
         produktbilden.setAttribute("alt", produkten.getNamn());
@@ -267,19 +274,25 @@ window.addEventListener("load", () => {
         produktpriset.textContent = produkten.getPris() + " kr";
         produktantal.value = 1;
         produktid.textContent = id;
+
+        // visar dialogen.
         produktsidan.showModal();
     };
 
+    // initierar produktlista och varukorg.
     const produktListan = new ProduktLista();
-    console.log(produktListan);
     const varukorgen = new Varukorg(produktListan);
-    const produktsidan = document.querySelector("#produktsida");
+
+    // definierar hamburgermeny-knappen och ingående innehåll, samt gör så innehållet visas när man klickar på den.
     const hambutton = document.querySelector(".hamburger-menu");
     const hammenu = document.querySelector(".hamcontent");
     hambutton.addEventListener("click", (e) => {
         hammenu.show();
     });
+
+    // nedanstående saker görs bara om URL:en innehåller ett frågetecken, vilket den bara ska göra om man har klickat på en kategori.
     if (window.location.href.includes("?")) {
+        // väljer en kategori utifrån argumentet som skickats med URL:en, och bygger sedan upp produktgalleriet för den kategorin.
         const category = window.location.href.split("?")[1].split("=")[1];
         byggGalleri(produktListan, category);
 
@@ -292,7 +305,7 @@ window.addEventListener("load", () => {
         );
         const produktId = document.querySelector("#produktid");
 
-        // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen.
+        // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen. Återställer sedan antalet till 1.
         produktAddToCartButton.addEventListener("click", () => {
             varukorgen.laggIKorg(
                 produktId.textContent,
@@ -305,6 +318,7 @@ window.addEventListener("load", () => {
                     " lagd i korg."
             );
             console.log(varukorgen.korg);
+            produktAddToCartValue.value = "1";
         });
     }
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
