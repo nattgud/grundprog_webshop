@@ -265,10 +265,9 @@ nav ul li a {
 
 /* main page category items as grid */
 .gallery {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center; /* center cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 280px);
+    justify-content: center;
     padding: 5vw 15vw;
     gap: 5vw;
 }
@@ -301,6 +300,7 @@ nav ul li a {
 .itemcard .card-picture img {
     width: 100%;
     border-radius: 3px;
+    margin-bottom: 10px;
 }
 .card-header,
 .card-picture {
