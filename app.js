@@ -283,12 +283,17 @@ window.addEventListener("load", () => {
 
             subtractButton.addEventListener("click", () => {
                 varukorgen.taUrKorg(item.id, 1)
-                const updatedItem = varukorgen.korg.find(p => p.id === item.id);
-                if(!updatedItem) {
+                const updatedItem = varukorgen.getVara(item.id)
+                console.log(updatedItem);
+                
+                if(updatedItem === undefined) {
                     shoppingListItemContainer.remove()                    
+                    console.log(varukorgen.korg);
                     return;
+                } else {
+                    itemAmount.innerText = updatedItem.antal
                 }
-                itemAmount.innerText = updatedItem.antal
+                
             })
 
         }
