@@ -268,7 +268,7 @@ nav ul li a {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-evenly; /* center cards evenly */
     padding: 5vw 15vw;
     gap: 5vw;
 }
