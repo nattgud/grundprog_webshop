@@ -315,18 +315,16 @@ window.addEventListener("load", () => {
         const galleri = document.querySelector(".gallery");
         console.log(galleri);
         console.log(lista);
-        if (kategori === "") {
+        /*         if (kategori === "") {
             const helpText = document.createElement("p");
             helpText.id = "helpText";
             helpText.textContent = "Välj en kategori i menyn!";
             galleri.appendChild(helpText);
-        } else {
-            const kategorilista = lista.getKategoriLista(kategori);
-            console.log(kategorilista);
-            kategorilista.forEach((i) =>
-                galleri.appendChild(byggKort(lista, i))
-            );
-        }
+        } else { */
+        const kategorilista = lista.getKategoriLista(kategori);
+        console.log(kategorilista);
+        kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
+        /*       } */
     };
 
     const byggProduktSida = (id) => {
@@ -482,11 +480,11 @@ window.addEventListener("load", () => {
     }
 
     // if productpage, populate productlist on page
-    if (window.location.href.includes("indexkat.html")) {
-        let galleryCategory = "";
-        if (window.location.href.includes("?")) {
-            galleryCategory = window.location.href.split("?")[1].split("=")[1];
-        }
+    if (window.location.href.includes("?")) {
+        const galleryCategory = window.location.href
+            .split("?")[1]
+            .split("=")[1];
+
         byggGalleri(produktListan, galleryCategory);
         // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
         const produktAddToCartButton = document.querySelector(
