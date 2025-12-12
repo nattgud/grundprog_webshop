@@ -175,7 +175,8 @@ header {
 }
 
 /* logo sizing */
-.headerlogo img:first-of-type, .headerlogo img:last-of-type {
+.headerlogo img:first-of-type,
+.headerlogo img:last-of-type {
     height: 50px;
 }
 
@@ -270,7 +271,8 @@ nav ul li a {
     gap: 5vw;
 }
 /* category items (flex, cursor, hover) */
-.main-item, .itemcard {
+.main-item,
+.itemcard {
     display: flex;
     flex-direction: row;
     border-radius: 1em;
@@ -285,9 +287,10 @@ nav ul li a {
     background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 200ms, color 200ms;
 }
-.gallery .main-item:hover, .gallery .itemcard:hover {
+.gallery .main-item:hover,
+.gallery .itemcard:hover {
     color: #fff;
-	background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 .itemcard {
     flex-direction: column;
@@ -405,4 +408,8 @@ nav ul li a {
     flex-direction: row;
     align-content: center;
     gap: 1em;
+}
+
+#produktid {
+    display: none;
 }

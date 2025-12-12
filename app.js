@@ -248,29 +248,79 @@ window.addEventListener("load", () => {
         console.log(kategorilista);
         kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
     };
+
     const byggProduktSida = (id) => {
+        // Bygger upp dialogrutan som poppar upp när man klickar på en bild i produktgalleriet genom att stoppa in värden i den existerande dialogrutans fält.
+
+        //hämtar produkten med visst ID
         const produkten = produktListan.getProd(id);
+
+        // definierar dialogen samt ingående element.
+        const produktsidan = document.querySelector("#produktsida");
         const produktnamnet = document.querySelector("#produktnamn");
         const produktbilden = document.querySelector("#produktbild");
         const produktbeskrivningen = document.querySelector(
             "#produktbeskrivning"
         );
         const produktpriset = document.querySelector("#produktpris");
+        const produktantal = document.querySelector("#produktAddToCartValue");
+        const produktid = document.querySelector("#produktid");
+
+        // sätter in värden på de ingående fälten.
         produktnamnet.textContent = produkten.getNamn();
         produktbilden.setAttribute("src", "images/" + id + ".png");
         produktbilden.setAttribute("alt", produkten.getNamn());
         produktbeskrivningen.textContent = produkten.getBeskrivning();
         produktpriset.textContent = produkten.getPris() + " kr";
+        produktantal.value = 1;
+        produktid.textContent = id;
+
+        // visar dialogen.
         produktsidan.showModal();
     };
+
+    // initierar produktlista och varukorg.
     const produktListan = new ProduktLista();
     const varukorgen = new Varukorg(produktListan);
-    const produktsidan = document.querySelector("#produktsida");
+
+    // definierar hamburgermeny-knappen och ingående innehåll, samt gör så innehållet visas när man klickar på den.
     const hambutton = document.querySelector(".hamburger-menu");
     const hammenu = document.querySelector("dialog.hamcontent");
     hambutton.addEventListener("click", (e) => {
         hammenu.show();
     });
+
+    // nedanstående saker görs bara om URL:en innehåller ett frågetecken, vilket den bara ska göra om man har klickat på en kategori.
+    if (window.location.href.includes("?")) {
+        // väljer en kategori utifrån argumentet som skickats med URL:en, och bygger sedan upp produktgalleriet för den kategorin.
+        const category = window.location.href.split("?")[1].split("=")[1];
+        byggGalleri(produktListan, category);
+
+        // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
+        const produktAddToCartButton = document.querySelector(
+            "#produktAddToCartButton"
+        );
+        const produktAddToCartValue = document.querySelector(
+            "#produktAddToCartValue"
+        );
+        const produktId = document.querySelector("#produktid");
+
+        // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen. Återställer sedan antalet till 1.
+        produktAddToCartButton.addEventListener("click", () => {
+            varukorgen.laggIKorg(
+                produktId.textContent,
+                Number(produktAddToCartValue.value)
+            );
+            console.log(
+                Number(produktAddToCartValue.value) +
+                    " st id " +
+                    produktId.textContent +
+                    " lagd i korg."
+            );
+            console.log(varukorgen.korg);
+            produktAddToCartValue.value = "1";
+        });
+    }
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
@@ -285,20 +335,20 @@ window.addEventListener("load", () => {
     });
 
     const kategoriNamn = {
-        laptop:     "Bärbart",
+        laptop: "Bärbart",
         smartphone: "Mobil",
-        network:    "Nätverk",
-        cables:     "Övrigt"
+        network: "Nätverk",
+        cables: "Övrigt",
     };
     const kategoriIkoner = {
-        laptop:     "laptop_windows",
+        laptop: "laptop_windows",
         smartphone: "mobile",
-        network:    "wifi",
-        cables:     "cable"
-    }
+        network: "wifi",
+        cables: "cable",
+    };
     const kategoriLista = [];
-    produktListan.prodLista.forEach(product => {
-        if(kategoriLista.indexOf(product.kategori) === -1) {
+    produktListan.prodLista.forEach((product) => {
+        if (kategoriLista.indexOf(product.kategori) === -1) {
             kategoriLista.push(product.kategori);
         }
     });
@@ -306,17 +356,18 @@ window.addEventListener("load", () => {
         const li = document.createElement("LI");
         li.classList.add("category-button");
         const a = document.createElement("A");
-        a.textContent = (kategoriNamn[cat] !== undefined)?kategoriNamn[cat]:cat;
-        if(subMenu === false) a.href = "indexkat.html?p="+cat;
+        a.textContent =
+            kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+        if (subMenu === false) a.href = "indexkat.html?p=" + cat;
         li.appendChild(a);
-        if(subMenu !== false) {
+        if (subMenu !== false) {
             const subMenuElement = document.createElement("DIALOG");
             subMenuElement.classList.add("subMenu");
             subMenuElement.closedBy = "any";
             const subMenuUl = document.createElement("UL");
-            subMenu.forEach(subMenuItem => {
+            subMenu.forEach((subMenuItem) => {
                 subMenuUl.appendChild(addMainMenuButton(subMenuItem));
-            })
+            });
             subMenuElement.appendChild(subMenuUl);
             li.appendChild(subMenuElement);
             li.style.position = "relative";
@@ -325,24 +376,34 @@ window.addEventListener("load", () => {
             });
         }
         return li;
-    }
-    if(kategoriLista.length <= 4) {
-        kategoriLista.forEach(cat => {
-            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(cat));
+    };
+    if (kategoriLista.length <= 4) {
+        kategoriLista.forEach((cat) => {
+            document
+                .querySelector("#topnav #top-nav-list")
+                .appendChild(addMainMenuButton(cat));
         });
     } else {
-        for(let c = 0; c < 3; c++) {
+        for (let c = 0; c < 3; c++) {
             console.log(kategoriLista[Object.keys(kategoriLista)[c]]);
-            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(kategoriLista[Object.keys(kategoriLista)[c]]));
+            document
+                .querySelector("#topnav #top-nav-list")
+                .appendChild(
+                    addMainMenuButton(
+                        kategoriLista[Object.keys(kategoriLista)[c]]
+                    )
+                );
         }
-        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
+        document
+            .querySelector("#topnav #top-nav-list")
+            .appendChild(addMainMenuButton("Fler...", kategoriLista.splice(3)));
     }
-    
+
     if (window.location.href.includes("?")) {
         const category = window.location.href.split("?")[1].split("=")[1];
         byggGalleri(produktListan, category);
     } else {
-        kategoriLista.forEach(cat => {
+        kategoriLista.forEach((cat) => {
             const item = document.createElement("A");
             item.classList.add("main-item");
             item.href = "indexkat.html?p=" + cat;
