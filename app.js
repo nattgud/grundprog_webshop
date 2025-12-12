@@ -382,13 +382,7 @@ window.addEventListener("load", () => {
                 produktId.textContent,
                 Number(produktAddToCartValue.value)
             );
-            console.log(
-                Number(produktAddToCartValue.value) +
-                    " st id " +
-                    produktId.textContent +
-                    " lagd i korg."
-            );
-            console.log(varukorgen.korg);
+            byggVarukorgLista();
             produktAddToCartValue.value = "1";
         });
     }
