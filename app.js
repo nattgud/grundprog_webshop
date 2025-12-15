@@ -179,8 +179,8 @@ class Varukorg {
     };
     // Uppdatera totalt antal produkter i varukorg vid varukorgsikon
     updCartInfo = () => {
-        document.querySelector("#cartNumber").textContent = (this.antalIKorg() === 0)?"":this.antalIKorg();
-        document.querySelector("#totalSum").textContent = (this.totalSumma() === 0)?"0":this.totalSumma();
+        if(document.querySelector("#cartNumber") !== null) document.querySelector("#cartNumber").textContent = (this.antalIKorg() === 0)?"":this.antalIKorg();
+        if(document.querySelector("#totalSum") !== null) document.querySelector("#totalSum").textContent = (this.totalSumma() === 0)?"0":this.totalSumma();
     };
 }
 
