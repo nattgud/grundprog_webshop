@@ -324,6 +324,7 @@ window.addEventListener("load", () => {
 
     const byggGalleri = (lista, kategori) => {
         const galleri = document.querySelector(".gallery");
+        galleri.innerHTML = "";
         console.log(galleri);
         console.log(lista);
         /*         if (kategori === "") {
