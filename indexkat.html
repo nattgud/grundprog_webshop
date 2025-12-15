@@ -14,6 +14,7 @@
     </head>
     <body>
         <header>
+            <!-- container hamburger menu -->
             <div class="hambmenu">
                 <button class="hamburger-menu">
                     <span class="material-symbols-outlined"> menu </span>
@@ -24,6 +25,8 @@
                     </nav>
                 </dialog>
             </div>
+
+            <!-- container icon and logotext img -->
             <div class="headerlogo">
                 <h1>
                     <a href="index.html">
@@ -38,9 +41,13 @@
                     /></a>
                 </h1>
             </div>
+
+            <!-- empty menu container, generate categories with JS -->
             <nav id="topnav">
                 <ul id="top-nav-list"></ul>
             </nav>
+
+            <!-- Shopping cart container -->
             <div id="varukorg">
                 <button class="shopping-cart-button">
                     <span class="material-symbols-outlined">
@@ -69,10 +76,11 @@
             </div>
         </header>
 
+        <!-- generera innehåll i JS -->
         <main>
             <div class="gallery"></div>
             <dialog id="produktsida" closedby="any">
-                <h2 id="produktnamn">Smartphone 0</h2>
+                <h2 id="produktnamn"></h2>
                 <img
                     src="images/smartphone_0.png"
                     alt=""
@@ -80,11 +88,11 @@
                     width="400"
                     id="produktbild"
                 />
-                <p id="produktbeskrivning">Detta är en smartphone av typ 0.</p>
+                <p id="produktbeskrivning"></p>
                 <div id="produktfooter">
-                    <div id="produktid">tomt</div>
+                    <div id="produktid"></div>
                     <!-- Detta är en lösning för att kunna komma åt produkt-ID utan att det syns. Diven har display:none i CSS. -->
-                    <div id="produktpris">1000 kr</div>
+                    <div id="produktpris"></div>
                     <div id="produktbuy">
                         <input
                             type="number"
