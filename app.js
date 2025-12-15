@@ -1,14 +1,6 @@
 class Product {
-    //@ts-check
-    /**
-     * Skapar ett objekt med ett id-nummer, namn, kategori, och pris.
-     * @param {String} id
-     * @param {String} namn
-     * @param {String} kategori
-     * @param {Number} pris
-     * @param {String} beskrivning
-     */
     constructor(id, namn, kategori, pris, beskrivning) {
+        //Skapar ett objekt med ett id-nummer, namn, kategori, och pris.
         this.id = id;
         this.namn = namn;
         this.kategori = kategori;
@@ -16,6 +8,7 @@ class Product {
         this.beskrivning = beskrivning;
     }
 
+    //Funktioner som byter namn, pris, etc på en produkt. Används inte praktiskt i detta projekt.
     setNamn = (namn) => (this.namn = namn);
 
     setPris = (pris) => (this.pris = pris);
@@ -24,6 +17,7 @@ class Product {
 
     setBeskrivning = (beskrivning) => (this.beskrivning = beskrivning);
 
+    //Funktioner som hämtar namn, pris, etc på en produkt.
     getNamn = () => this.namn;
 
     getPris = () => this.pris;
@@ -62,7 +56,7 @@ class ProduktLista {
     addProd = (id, namn, kategori, pris, beskrivning) =>
         this.prodLista.push(new Product(id, namn, kategori, pris, beskrivning));
 
-    // Hämtar produkten med ett visst id. Här borde det finnas någon sorts felkontroll också ifall id:t inte finns.
+    // Hämtar produkten med ett visst id.
     getProd = (id) => {
         for (const element of this.prodLista) {
             if (element.getId() === id) {
@@ -81,6 +75,7 @@ class ProduktLista {
     getBeskrivning = (id) => this.getProd(id).getBeskrivning();
 
     getKategoriLista = (kat) => {
+        //Tar fram en lista på alla varor som tillhör en viss kategori.
         const lista = [];
         this.prodLista.forEach((i) => {
             if (i.kategori === kat) lista.push(i.id);
@@ -167,9 +162,10 @@ class Varukorg {
     };
 
     tomKorg = () => {
+        //Tömmer varukorgen.
         this.korg = [];
         this.updSparadVarukorg();
-    }; //Tömmer varukorgen. Kanske bör ha någon UI som kollar att man är säker?
+    };
 
     updSparadVarukorg = () => {
         localStorage.setItem("cart", JSON.stringify(this.korg));
@@ -179,18 +175,25 @@ class Varukorg {
     };
     // Uppdatera totalt antal produkter i varukorg vid varukorgsikon
     updCartInfo = () => {
-        if(document.querySelector("#cartNumber") !== null) document.querySelector("#cartNumber").textContent = (this.antalIKorg() === 0)?"":this.antalIKorg();
-        if(document.querySelector("#totalSum") !== null) document.querySelector("#totalSum").textContent = (this.totalSumma() === 0)?"0":this.totalSumma();
+        if (document.querySelector("#cartNumber") !== null)
+            document.querySelector("#cartNumber").textContent =
+                this.antalIKorg() === 0 ? "" : this.antalIKorg();
+        if (document.querySelector("#totalSum") !== null)
+            document.querySelector("#totalSum").textContent =
+                this.totalSumma() === 0 ? "0" : this.totalSumma();
     };
 }
 
 window.addEventListener("load", () => {
     const byggKort = (lista, id) => {
+        //Skapa ett kort för produkten med visst id i produktlistan.
         const produkten = lista.getProd(id);
         if (produkten === undefined) {
+            //Kontroll så produkten faktiskt finns i listan.
             console.log(`Det finns ingen produkt med id {$id}!`);
             return;
         } else {
+            //Skapa ett kort utifrån de ingående elementen och lägg sedan ihop dem.
             const card = document.createElement("div");
             card.classList.add("itemcard");
 
@@ -231,9 +234,9 @@ window.addEventListener("load", () => {
 
             cardfooter.appendChild(cardprice);
             cardfooter.appendChild(cardbutton);
+            //Lägg funktionalitet på "köp"-knappen i kortet för att lägga en av varan i varukorgen.
             cardbutton.addEventListener("click", () => {
                 varukorgen.laggIKorg(id, 1);
-                console.log("id " + id + " lagd i korg.");
                 byggVarukorgLista();
             });
 
@@ -241,6 +244,7 @@ window.addEventListener("load", () => {
             card.appendChild(cardpicture);
             card.appendChild(cardfooter);
 
+            //Skickar tillbaka kortet som svar på funktionen.
             return card;
         }
     };
@@ -277,21 +281,18 @@ window.addEventListener("load", () => {
             const itemTotalCost = document.createElement("p");
             itemTotalCost.textContent = varukorgen.delSumma(item.id);
 
-
             shoppingList.appendChild(shoppingListItemContainer);
 
             shoppingListItemContainer.appendChild(liContainer);
             shoppingListItemContainer.appendChild(shoppingListButtonsContainer);
 
-            liContainer.textContent = produktListan.getNamn(
-                item.id
-            ); //hämta namnoch uppdatera innehåll från produktlista på nuvarande index i loopen.
+            liContainer.textContent = produktListan.getNamn(item.id); //hämta namnoch uppdatera innehåll från produktlista på nuvarande index i loopen.
             itemAmount.innerText = item.antal; // Hämta antalet som korgen sparat i localstorage och uppdatera innehållet i <p> alltså (itemAmount)
 
             shoppingListButtonsContainer.appendChild(subtractButton);
             shoppingListButtonsContainer.appendChild(itemAmount);
             shoppingListButtonsContainer.appendChild(addButton);
-            
+
             shoppingListButtonsContainer.appendChild(itemTotalCost);
 
             addButton.addEventListener("click", () => {
@@ -323,19 +324,10 @@ window.addEventListener("load", () => {
     });
 
     const byggGalleri = (lista, kategori) => {
+        // Hämtar galleriet samt en lista på alla produkter i en viss kategori. Bygger sedan ett kort för varje produkt i den gategorin och lägger in den i galleriet.
         const galleri = document.querySelector(".gallery");
-        console.log(galleri);
-        console.log(lista);
-        /*         if (kategori === "") {
-            const helpText = document.createElement("p");
-            helpText.id = "helpText";
-            helpText.textContent = "Välj en kategori i menyn!";
-            galleri.appendChild(helpText);
-        } else { */
         const kategorilista = lista.getKategoriLista(kategori);
-        console.log(kategorilista);
         kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
-        /*       } */
     };
 
     const byggProduktSida = (id) => {
@@ -353,11 +345,11 @@ window.addEventListener("load", () => {
         );
         const produktpriset = document.querySelector("#produktpris");
         const produktantal = document.querySelector("#produktAddToCartValue");
-        const produktid = document.querySelector("#produktid");
+        const produktid = document.querySelector("#produktid"); //Osynligt fält, används för att få köpfunktionen att fungera som den ska.
 
         // sätter in värden på de ingående fälten.
         produktnamnet.textContent = produkten.getNamn();
-        produktbilden.setAttribute("src", "images/" + id + ".png");
+        produktbilden.setAttribute("src", "images/" + id + ".png"); //Samtliga bilder har namn = produkt-ID följt av .png
         produktbilden.setAttribute("alt", produkten.getNamn());
         produktbeskrivningen.textContent = produkten.getBeskrivning();
         produktpriset.textContent = produkten.getPris() + " kr";
@@ -492,7 +484,8 @@ window.addEventListener("load", () => {
 
     // if productpage, populate productlist on page
     if (window.location.href.includes("indexkat.html")) {
-        if(!window.location.href.includes("?")) window.location.assign("index.html");
+        if (!window.location.href.includes("?"))
+            window.location.assign("index.html");
         const galleryCategory = window.location.href
             .split("?")[1]
             .split("=")[1];
