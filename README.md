@@ -15,7 +15,7 @@ För att använda appen på din egen dator, ladda ner filen webshop.7z, packa up
 
 ## Teknologistack
 
-Vi har byggt applikationen i HTML, CSS, och Javascript. Då vi inte haft någon backend har vi kört med en fingerad databas, som läses in som ett JSON-objekt och konverteras till en array via en klass. Vi har använt klasser i Javascript för de saker där vi tyckt det varit lämpligt att göra så, och standalone-funktioner där det passat bättre. Själva sortimentet har vi låtit ChatGTP generera Vi har även jobbar med versionshantering i git och Github.
+Vi har byggt applikationen i HTML, CSS, och Javascript. Då vi inte haft någon backend har vi kört med en fingerad databas, som läses in som ett JSON-objekt och konverteras till en array via en klass. Vi har använt klasser i Javascript för de saker där vi tyckt det varit lämpligt att göra så, och standalone-funktioner där det passat bättre. Själva sortimentet har vi låtit ChatGPT generera. Vi har även jobbat med versionshantering i git och Github.
 
 ## Gruppmedlemmar
 
