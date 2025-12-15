@@ -288,6 +288,14 @@ nav ul li a {
     padding: 5vw 15vw;
     gap: 5vw;
 }
+
+.front-page-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 /* category items (flex, cursor, hover) */
 .main-item,
 .itemcard {
