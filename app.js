@@ -326,6 +326,7 @@ window.addEventListener("load", () => {
     const byggGalleri = (lista, kategori) => {
         // Hämtar galleriet samt en lista på alla produkter i en viss kategori. Bygger sedan ett kort för varje produkt i den gategorin och lägger in den i galleriet.
         const galleri = document.querySelector(".gallery");
+        galleri.innerHTML = "";
         const kategorilista = lista.getKategoriLista(kategori);
         kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
     };
