@@ -18,7 +18,6 @@
     --shadow-button-click: rgb(68, 68, 68);
 }
 
-/* flex as main layout and default font */
 body {
     display: flex;
     flex-direction: column;
@@ -26,59 +25,29 @@ body {
     height: 100vh;
     background: var(--body-background);
     color: var(--text-color);
-    background-repeat: no-repeat;
     background-attachment: fixed;
-}
-/* default content styling (padding+centering) */
-main,
-footer {
-    padding: 10px;
-}
-/* main fill rest of content (vertical) */
-main {
-    flex: 1 0 10px;
-}
-/* center content */
-footer {
-    text-align: center;
-}
-
-header nav ul li a:hover {
-    color: var(--dark-blue);
 }
 
 /* Desktop category button */
 .category-button {
     font-size: 1.1rem;
-    color: var(--text-color);
-    height: 100px;
-    width: 100px;
     cursor: pointer;
 }
+
 /* grow in size and change color */
 ul#top-nav-list > .category-button:hover {
     background: var(--text-color);
     color: var(--dark-blue);
     font-size: 1.2rem;
     font-weight: bold;
-    border: 5px solid var(--dark-blue);
+    box-shadow: inset 0 0 0 5px var(--dark-blue); /* instead of border, more discrete transition */
     outline: 1px solid #fff;
     outline-width: 0px 0px 0px 1px;
 }
+
 ul#top-nav-list .category-button:hover a {
     font-weight: normal;
     color: var(--dark-blue);
-}
-ul#top-nav-list .category-button:hover .category-button a {
-    color: var(--text-color);
-}
-ul#top-nav-list .category-button:hover .category-button a:focus {
-    outline: none;
-}
-/* Give a light shadow for clicking down appearence */
-.category-button:active {
-    box-shadow: 0px 0px 4px 1px var(--shadow-button-click) inset;
-    transition: all 0.1s ease;
 }
 
 .shopping-cart-button {
@@ -91,19 +60,20 @@ ul#top-nav-list .category-button:hover .category-button a:focus {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 .shopping-cart-button .material-symbols-outlined {
     font-size: 2rem;
 }
+
 button {
     cursor: pointer;
 }
 
-/* light white radial color growth and size, changes remain on icon after it's clicked */
-.shopping-cart-button:hover, .shopping-cart-button:focus {
-    /* background: var(--color-gradient2); */
+/* light white color growth */
+.shopping-cart-button:hover {
     text-shadow: 0px 0px 20px #fff;
-    /* transform: scale(1.3, 1.3); */
 }
+
 /* Number for items in cart */
 #cartNumber {
     position: absolute;
@@ -111,28 +81,14 @@ button {
     left: 45%;
     top: 50%;
     background-color: var(--text-color);
-    /* border: 1px solid # */
     color: #000;
     font-weight: bold;
     padding: 3px;
     border-radius: 50%;
 }
+
 #cartNumber:empty {
     display: none;
-}
-
-/* mobile and tablet menu button -- Pinkish buttons containing icons*/
-.icon-menu-button {
-    padding: 10px;
-    background-color: var(--pinkish-color);
-    color: var(--color2);
-    border: none;
-    border-radius: 10px;
-}
-
-/* on tap with finger indictate button is clicked */
-.icon-menu-button:active {
-    background-color: var(--text-color);
 }
 
 /* mobile and tablet menu button */
@@ -151,23 +107,15 @@ button {
     transform: scale(1.3, 1.3);
 }
 
-.hamcontent,
-.subMenu {
-    margin: 0px;
-    transition: all 0.3s ease;
-    background: var(--color-gradient1);
+.hamcontent, .subMenu {
+    margin: 1px;
+    background: none;
+    border: 5px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
-.subMenu {
-    top: 100%;
-}
-li:hover > .subMenu {
-    display: block;
-}
-.subMenu ul {
+
+.hambmenu dialog {
     padding: 0px;
-}
-.subMenu li {
-    height: auto;
 }
 
 /* Flex on header element with space-between for a spacious layout */
@@ -182,9 +130,6 @@ header {
 
 .headerlogo {
     margin-left: 20px;
-}
-.headerlogo h1 {
-    margin: 0px;
 }
 
 /* logga och ikon linjerar ordentligt med en flex */
@@ -203,16 +148,9 @@ header {
     display: flex;
     flex-direction: row;
     height: 100%;
-    flex: 0.5 1 500px; /* bättre scaling med size 500 än tidigare 100 */
+    flex: 0.5 1 500px;
 }
 
-/* nav flex and fill header for hamburger menu */
-#hamnav {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    flex: 0.5 1 100px;
-}
 /* replace default styling with flex */
 #topnav > ul {
     display: flex;
@@ -226,11 +164,6 @@ header {
 
 /* replace default styling with flex for hamburger menu*/
 #hamnav ul {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    height: 100%;
-    align-content: center;
     margin: 0;
     padding: 0;
 }
@@ -241,8 +174,9 @@ header {
 }
 
 /* border between menu items in hamburger menu */
-#hamnav > ul > li:not(:first-of-type) {
-    border-top: 1px solid #fff;
+#hamnav > ul > li {
+    border-top: 1px solid var(--dark-blue);
+    padding: 1px;
 }
 
 /* link fix */
@@ -272,12 +206,20 @@ nav ul li a {
     background-color: rgba(255, 0, 255, 0);
     transition: text-shadow 200ms, color 200ms;
 }
-/* menu item hover effect (text light up) */
-#hamnav ul li a:hover,
-.subMenu li a:hover {
-    color: #fff;
-    text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff, 0px 0px 20px #fff,
-        0px 0px 40px #fff;
+
+/* Style on hamburger category buttons */
+#hamnav ul li a {
+    padding: 20px;
+    background-color: var(--pinkish-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+/* menu item hover effect */
+#hamnav ul li a:active, #hamnav ul li a:hover {
+    color: var(--dark-blue);
+    box-shadow: 0px 0px 4px 1px var(--dark-blue) inset;
+    transition: all 0.1s ease;
 }
 
 /* main page category items as grid */
@@ -297,8 +239,7 @@ nav ul li a {
 }
 
 /* category items (flex, cursor, hover) */
-.main-item,
-.itemcard {
+.main-item, .itemcard {
     display: flex;
     flex-direction: row;
     border-radius: 1em;
@@ -313,28 +254,28 @@ nav ul li a {
     background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 200ms, color 200ms;
 }
+
 .gallery .main-item:hover,
 .gallery .itemcard:hover {
     color: #fff;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
 .itemcard {
     flex-direction: column;
     flex: 0 1 250px;
 }
+
 .itemcard .card-picture img {
     width: 100%;
     border-radius: 3px;
     margin-bottom: 10px;
 }
-.card-header,
-.card-picture {
+
+.card-header, .card-picture, .main-header, .main-picture {
     align-self: center;
 }
-.main-header,
-.main-picture {
-    align-self: center;
-}
+
 /* centering and font size for responsive layout */
 .gallery .main-item .main-header {
     display: flex;
@@ -342,13 +283,14 @@ nav ul li a {
     flex: 1 1 0;
     font-size: 3vw;
 }
-/* category background circle */
+
+/* category background circle on front page */
 .gallery .main-item .main-picture {
     background-color: #000;
     border-radius: 50%;
     padding: 20px;
-    color: #fff;
 }
+
 /* category icon with linear-gradient coloring */
 .gallery .main-item .main-picture .material-symbols-outlined {
     font-size: 5vw;
@@ -360,6 +302,7 @@ nav ul li a {
 .hambmenu {
     display: none;
 }
+
 /* smaller screens  */
 @media (max-width: 800px) {
     /* category items content flow vertically */
@@ -392,6 +335,7 @@ nav ul li a {
     flex-direction: row;
     justify-content: space-between;
 }
+
 /* Buy or add to shopping cart button*/
 .buy-button {
     background-color: var(--dark-green);
@@ -400,14 +344,11 @@ nav ul li a {
     border: none;
     border-radius: 5px;
     font-size: 1.1rem;
+    cursor: pointer;
 }
 
 .buy-button:hover {
     background-color: var(--green-transparent);
-}
-
-#payNow {
-    flex-grow: 1;
 }
 
 #varukorg {
@@ -417,11 +358,11 @@ nav ul li a {
 
 #shopping-cart-modal {
     margin: 0;
-    position: absolute;
     left: -195px;
     top: 110px;
     min-width: 300px;
 }
+
 /* Formatting for modal product info dialog */
 #produktsida {
     background: var(--body-background);
@@ -448,9 +389,6 @@ nav ul li a {
 }
 
 #shopping-cart-display-list {
-    /* display: flex; */
-    display: inline-block;
-    flex-direction: column;
     list-style: none;
     padding: 0;
 }
@@ -464,14 +402,17 @@ nav ul li a {
 .shopping-list-buttons-container {
     text-align: right;
 }
+
 .shopping-list-buttons-container p {
     display: inline-block;
     padding: 0;
     margin: 0;
 }
+
 .shopping-list-buttons-container > div > p:last-of-type {
     display: block;
 }
+
 .shopping-list-buttons-container > div > p:last-of-type:after {
     content: " kr";
 }

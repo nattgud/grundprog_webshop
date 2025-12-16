@@ -253,9 +253,7 @@ window.addEventListener("load", () => {
     };
 
     const byggVarukorgLista = () => {
-        const shoppingList = document.querySelector(
-            "#shopping-cart-display-list"
-        ); // Hämta ul från html
+        const shoppingList = document.querySelector("#shopping-cart-display-list"); // Hämta ul från html
         shoppingList.innerHTML = ""; // nollställ innehåll var gång vi kör funktionen
         varukorgen.updCartInfo();
         // loop som bygger lista på nytt varje gång vi lägger till en ny produkt därför vi nollställer innehåll ovanför loop
@@ -275,10 +273,8 @@ window.addEventListener("load", () => {
             );
 
             const subtractButton = document.createElement("button");
-            subtractButton.classList.add("subtractButton");
             const itemAmount = document.createElement("p");
             const addButton = document.createElement("button");
-            addButton.classList.add("addButton");
             subtractButton.innerText = "-";
             addButton.innerText = "+";
             const itemTotalCost = document.createElement("p");
@@ -289,13 +285,12 @@ window.addEventListener("load", () => {
             shoppingListItemContainer.appendChild(liContainer);
             shoppingListItemContainer.appendChild(shoppingListButtonsContainer);
 
-            liContainer.textContent = produktListan.getNamn(item.id); //hämta namnoch uppdatera innehåll från produktlista på nuvarande index i loopen.
+            liContainer.textContent = produktListan.getNamn(item.id); //hämta namn och uppdatera innehåll från produktlista på nuvarande index i loopen.
             itemAmount.innerText = item.antal; // Hämta antalet som korgen sparat i localstorage och uppdatera innehållet i <p> alltså (itemAmount)
 
             shoppingListButtonsContainer.appendChild(subtractButton);
             shoppingListButtonsContainer.appendChild(itemAmount);
             shoppingListButtonsContainer.appendChild(addButton);
-
             shoppingListButtonsContainer.appendChild(itemTotalCost);
 
             addButton.addEventListener("click", () => {
@@ -371,20 +366,19 @@ window.addEventListener("load", () => {
     // definierar hamburgermeny-knappen och ingående innehåll, samt gör så innehållet visas när man klickar på den.
     const hambutton = document.querySelector(".hamburger-menu");
     const hammenu = document.querySelector("dialog.hamcontent");
-    hambutton.addEventListener("click", (e) => {
+    hambutton.addEventListener("click", () => {
         hammenu.show();
     });
 
     const shoppingCartButton = document.querySelector(".shopping-cart-button");
     const cartMenu = document.querySelector(".cart-content");
     const buyButtonNow = document.querySelector("#payNow");
-    const addToCartButton = document.querySelector(".add-to-cart");
 
     shoppingCartButton.addEventListener("click", () => {
         cartMenu.show();
     });
 
-    byggVarukorgLista();
+    byggVarukorgLista(); // kör så varukorg finns på framsida
 
     buyButtonNow.addEventListener("click", () => {
         alert("Du har handlat");
