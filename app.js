@@ -489,7 +489,8 @@ window.addEventListener("load", () => {
 
     // if on productpage, populate productlist on page
     if (window.location.href.includes("indexkat.html")) {
-        if(!window.location.href.includes("?")) window.location.assign("index.html");   // If no category variable (GET), redirect to index.html
+        // If no category variable (GET), redirect to index.html
+        if(!window.location.href.includes("?")) window.location.assign("index.html");
         // Get category from GET-variable
         const galleryCategory = window.location.href.split("?")[1].split("=")[1];
 
