@@ -119,9 +119,11 @@ button {
 }
 .subMenu {
     top: 100%;
+    width: 100%;
 }
 .subMenu a {
     color: var(--text-color)!important;
+    outline: none;
 }
 .subMenu a:hover {
     color: var(--dark-blue)!important;
