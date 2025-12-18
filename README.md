@@ -12,7 +12,7 @@ Detta projekt är en examination inom kursen Grundläggande Programmering inom r
 
 ## Användande
 
-För att använda appen på din egen dator, ladda ner filen webshop.7z, packa upp den med [7zip](https://www.7-zip.org/), och öppna den i lämplig webbläsare.
+För att använda appen på din egen dator, ladda ner zip-filen via GitHubs inbyggda funktion, och öppna den i lämplig webbläsare.
 
 ## Teknologistack
 
