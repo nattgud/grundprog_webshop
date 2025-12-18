@@ -114,8 +114,17 @@ button {
     border-radius: 10px;
 }
 
-.hambmenu dialog {
+.hambmenu dialog, .subMenu {
     padding: 0px;
+}
+.subMenu {
+    top: 100%;
+}
+.subMenu a {
+    color: var(--text-color)!important;
+}
+.subMenu a:hover {
+    color: var(--dark-blue)!important;
 }
 
 /* Flex on header element with space-between for a spacious layout */
@@ -163,7 +172,7 @@ header {
 }
 
 /* replace default styling with flex for hamburger menu*/
-#hamnav ul {
+#hamnav ul, .subMenu ul {
     margin: 0;
     padding: 0;
 }
@@ -174,7 +183,7 @@ header {
 }
 
 /* border between menu items in hamburger menu */
-#hamnav > ul > li {
+#hamnav > ul > li, .subMenu > ul > li {
     border-top: 1px solid var(--dark-blue);
     padding: 1px;
 }
@@ -208,7 +217,7 @@ nav ul li a {
 }
 
 /* Style on hamburger category buttons */
-#hamnav ul li a {
+#hamnav ul li a, .subMenu ul li a {
     padding: 20px;
     background-color: var(--pinkish-color);
     color: var(--text-color);
@@ -216,7 +225,7 @@ nav ul li a {
 }
 
 /* menu item hover effect */
-#hamnav ul li a:active, #hamnav ul li a:hover {
+#hamnav ul li a:active, #hamnav ul li a:hover, .subMenu ul li a:active, .subMenu ul li a:hover {
     color: var(--dark-blue);
     box-shadow: 0px 0px 4px 1px var(--dark-blue) inset;
     transition: all 0.1s ease;
