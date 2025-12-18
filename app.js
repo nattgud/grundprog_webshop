@@ -434,7 +434,6 @@ window.addEventListener("load", () => {
             kategoriLista.push(product.kategori);
         }
     });
-    kategoriLista.push("alsijdf");
     // Function to create main nav buttons (standard or submenu)
     const addMainMenuButton = (cat, subMenu = false) => {
         const li = document.createElement("LI");
