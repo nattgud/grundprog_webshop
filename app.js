@@ -8,6 +8,89 @@ class Product {
         this.beskrivning = beskrivning;
     }
 
+    byggKort = () => {
+        //Skapa ett kort för produkten utifrån de ingående elementen och lägg sedan ihop dem.
+        const card = document.createElement("div");
+        card.classList.add("itemcard");
+
+        const cardheader = document.createElement("div");
+        cardheader.classList.add("card-header");
+        const cardh2 = document.createElement("h2");
+        cardh2.textContent = this.namn;
+        cardheader.appendChild(cardh2);
+
+        const imgname = "images/" + this.id + ".png";
+        const cardpicture = document.createElement("div");
+        cardpicture.classList.add("card-picture");
+
+        const cardimg = document.createElement("img");
+        cardimg.setAttribute("src", imgname);
+        cardimg.setAttribute("alt", this.namn);
+        cardimg.setAttribute("width", "200");
+        cardimg.setAttribute("height", "200");
+
+        cardpicture.appendChild(cardimg);
+        cardpicture.addEventListener("click", () => this.byggProduktSida());
+
+        const cardfooter = document.createElement("div");
+        cardfooter.classList.add("card-footer");
+
+        const cardprice = document.createElement("div");
+        cardprice.classList.add("card-price");
+        cardprice.textContent = this.pris + " kr";
+
+        const cardbutton = document.createElement("div");
+        cardbutton.classList.add("buy-button");
+
+        const cardbuttonspan = document.createElement("span");
+        cardbuttonspan.classList.add("material-symbols-outlined");
+        cardbuttonspan.textContent = "add_shopping_cart";
+
+        cardbutton.appendChild(cardbuttonspan);
+
+        cardfooter.appendChild(cardprice);
+        cardfooter.appendChild(cardbutton);
+        //Lägg funktionalitet på "köp"-knappen i kortet för att lägga en av varan i varukorgen.
+        cardbutton.addEventListener("click", () => {
+            varukorgen.laggIKorg(id, 1);
+            byggVarukorgLista();
+        });
+
+        card.appendChild(cardheader);
+        card.appendChild(cardpicture);
+        card.appendChild(cardfooter);
+
+        //Skickar tillbaka kortet som svar på funktionen.
+        return card;
+    };
+
+    byggProduktSida = () => {
+        // Bygger upp dialogrutan som poppar upp när man klickar på en bild i produktgalleriet genom att stoppa in värden i den existerande dialogrutans fält.
+
+        // definierar dialogen samt ingående element.
+        const produktsidan = document.querySelector("#produktsida");
+        const produktnamnet = document.querySelector("#produktnamn");
+        const produktbilden = document.querySelector("#produktbild");
+        const produktbeskrivningen = document.querySelector(
+            "#produktbeskrivning"
+        );
+        const produktpriset = document.querySelector("#produktpris");
+        const produktantal = document.querySelector("#produktAddToCartValue");
+        const produktid = document.querySelector("#produktid"); //Osynligt fält, används för att få köpfunktionen att fungera som den ska.
+
+        // sätter in värden på de ingående fälten.
+        produktnamnet.textContent = this.namn;
+        produktbilden.setAttribute("src", "images/" + this.id + ".png"); //Samtliga bilder har namn = produkt-ID följt av .png
+        produktbilden.setAttribute("alt", this.namn);
+        produktbeskrivningen.textContent = this.beskrivning;
+        produktpriset.textContent = this.pris + " kr";
+        produktantal.value = 1;
+        produktid.textContent = this.id;
+
+        // visar dialogen.
+        produktsidan.showModal();
+    };
+
     //Funktioner som byter namn, pris, etc på en produkt. Används inte praktiskt i detta projekt.
     setNamn = (namn) => (this.namn = namn);
 
@@ -78,7 +161,7 @@ class ProduktLista {
         //Tar fram en lista på alla varor som tillhör en viss kategori.
         const lista = [];
         this.prodLista.forEach((i) => {
-            if (i.kategori === kat) lista.push(i.id);
+            if (i.kategori === kat) lista.push(i);
         });
         return lista;
     };
@@ -188,7 +271,7 @@ class Varukorg {
 
 // Kör när hela sidan laddats klart
 window.addEventListener("load", () => {
-    const byggKort = (lista, id) => {
+    /* const byggKort = (lista, id) => {
         //Skapa ett kort för produkten med visst id i produktlistan.
         const produkten = lista.getProd(id);
         if (produkten === undefined) {
@@ -250,10 +333,12 @@ window.addEventListener("load", () => {
             //Skickar tillbaka kortet som svar på funktionen.
             return card;
         }
-    };
+    }; */
 
     const byggVarukorgLista = () => {
-        const shoppingList = document.querySelector("#shopping-cart-display-list"); // Hämta ul från html
+        const shoppingList = document.querySelector(
+            "#shopping-cart-display-list"
+        ); // Hämta ul från html
         shoppingList.innerHTML = ""; // nollställ innehåll var gång vi kör funktionen
         varukorgen.updCartInfo();
         // loop som bygger lista på nytt varje gång vi lägger till en ny produkt därför vi nollställer innehåll ovanför loop
@@ -326,10 +411,11 @@ window.addEventListener("load", () => {
         const galleri = document.querySelector(".gallery");
         galleri.innerHTML = "";
         const kategorilista = lista.getKategoriLista(kategori);
-        kategorilista.forEach((i) => galleri.appendChild(byggKort(lista, i)));
+        console.log(kategorilista);
+        kategorilista.forEach((i) => galleri.appendChild(i.byggKort()));
     };
 
-    const byggProduktSida = (id) => {
+    /* const byggProduktSida = (id) => {
         // Bygger upp dialogrutan som poppar upp när man klickar på en bild i produktgalleriet genom att stoppa in värden i den existerande dialogrutans fält.
 
         //hämtar produkten med visst ID
@@ -357,7 +443,7 @@ window.addEventListener("load", () => {
 
         // visar dialogen.
         produktsidan.showModal();
-    };
+    }; */
 
     // initierar produktlista och varukorg.
     const produktListan = new ProduktLista();
@@ -439,7 +525,8 @@ window.addEventListener("load", () => {
         const li = document.createElement("LI");
         li.classList.add("category-button");
         const a = document.createElement("A");
-        a.textContent = kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+        a.textContent =
+            kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
         if (subMenu === false) a.href = "indexkat.html?p=" + cat;
         li.appendChild(a);
         if (subMenu !== false) {
@@ -447,7 +534,7 @@ window.addEventListener("load", () => {
             subMenuElement.classList.add("subMenu");
             subMenuElement.closedBy = "any";
             const subMenuUl = document.createElement("UL");
-            subMenu.forEach(subMenuItem => {
+            subMenu.forEach((subMenuItem) => {
                 subMenuUl.appendChild(addMainMenuButton(subMenuItem));
             });
             subMenuElement.appendChild(subMenuUl);
@@ -461,22 +548,33 @@ window.addEventListener("load", () => {
     };
     // Populate main nav with either all menuitems or a submenu if more than 4 items
     if (kategoriLista.length <= 4) {
-        kategoriLista.forEach(cat => {
-            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(cat));
+        kategoriLista.forEach((cat) => {
+            document
+                .querySelector("#topnav #top-nav-list")
+                .appendChild(addMainMenuButton(cat));
         });
     } else {
         for (let c = 0; c < 3; c++) {
-            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(kategoriLista[Object.keys(kategoriLista)[c]]));
+            document
+                .querySelector("#topnav #top-nav-list")
+                .appendChild(
+                    addMainMenuButton(
+                        kategoriLista[Object.keys(kategoriLista)[c]]
+                    )
+                );
         }
-        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.slice(3)));
+        document
+            .querySelector("#topnav #top-nav-list")
+            .appendChild(addMainMenuButton("Fler...", kategoriLista.slice(3)));
     }
 
     // Populate hamburger menu
-    kategoriLista.forEach(cat => {
+    kategoriLista.forEach((cat) => {
         const li = document.createElement("LI");
         const a = document.createElement("A");
         a.href = "indexkat.html?p=" + cat;
-        a.textContent = kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+        a.textContent =
+            kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
         li.appendChild(a);
         hammenu.querySelector("ul").appendChild(li);
     });
@@ -484,9 +582,12 @@ window.addEventListener("load", () => {
     // if on productpage, populate productlist on page
     if (window.location.href.includes("indexkat.html")) {
         // If no category variable (GET), redirect to index.html
-        if(!window.location.href.includes("?")) window.location.assign("index.html");
+        if (!window.location.href.includes("?"))
+            window.location.assign("index.html");
         // Get category from GET-variable
-        const galleryCategory = window.location.href.split("?")[1].split("=")[1];
+        const galleryCategory = window.location.href
+            .split("?")[1]
+            .split("=")[1];
 
         byggGalleri(produktListan, galleryCategory);
         // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
@@ -500,7 +601,10 @@ window.addEventListener("load", () => {
 
         // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen. Återställer sedan antalet till 1.
         produktAddToCartButton.addEventListener("click", () => {
-            varukorgen.laggIKorg(produktId.textContent, Number(produktAddToCartValue.value));
+            varukorgen.laggIKorg(
+                produktId.textContent,
+                Number(produktAddToCartValue.value)
+            );
             byggVarukorgLista();
             produktAddToCartValue.value = "1";
         });
@@ -512,12 +616,16 @@ window.addEventListener("load", () => {
             item.href = "indexkat.html?p=" + cat;
             const itemHeader = document.createElement("DIV");
             itemHeader.classList.add("main-header");
-            itemHeader.textContent = kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+            itemHeader.textContent =
+                kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
             const itemIconContainer = document.createElement("DIV");
             itemIconContainer.classList.add("main-picture");
             const itemIcon = document.createElement("SPAN");
             itemIcon.classList.add("material-symbols-outlined");
-            itemIcon.textContent = kategoriIkoner[cat] !== undefined ? kategoriIkoner[cat] : "inventory_2";
+            itemIcon.textContent =
+                kategoriIkoner[cat] !== undefined
+                    ? kategoriIkoner[cat]
+                    : "inventory_2";
             itemIconContainer.appendChild(itemIcon);
             item.appendChild(itemHeader);
             item.appendChild(itemIconContainer);
