@@ -411,7 +411,6 @@ window.addEventListener("load", () => {
         const galleri = document.querySelector(".gallery");
         galleri.innerHTML = "";
         const kategorilista = lista.getKategoriLista(kategori);
-        console.log(kategorilista);
         kategorilista.forEach((i) => galleri.appendChild(i.byggKort()));
     };
 
