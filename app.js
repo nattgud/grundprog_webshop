@@ -253,7 +253,9 @@ window.addEventListener("load", () => {
     };
 
     const byggVarukorgLista = () => {
-        const shoppingList = document.querySelector("#shopping-cart-display-list"); // Hämta ul från html
+        const shoppingList = document.querySelector(
+            "#shopping-cart-display-list"
+        ); // Hämta ul från html
         shoppingList.innerHTML = ""; // nollställ innehåll var gång vi kör funktionen
         varukorgen.updCartInfo();
         // loop som bygger lista på nytt varje gång vi lägger till en ny produkt därför vi nollställer innehåll ovanför loop
@@ -439,7 +441,8 @@ window.addEventListener("load", () => {
         const li = document.createElement("LI");
         li.classList.add("category-button");
         const a = document.createElement("A");
-        a.textContent = kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+        a.textContent =
+            kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
         if (subMenu === false) a.href = "indexkat.html?p=" + cat;
         li.appendChild(a);
         if (subMenu !== false) {
@@ -447,7 +450,7 @@ window.addEventListener("load", () => {
             subMenuElement.classList.add("subMenu");
             subMenuElement.closedBy = "any";
             const subMenuUl = document.createElement("UL");
-            subMenu.forEach(subMenuItem => {
+            subMenu.forEach((subMenuItem) => {
                 subMenuUl.appendChild(addMainMenuButton(subMenuItem));
             });
             subMenuElement.appendChild(subMenuUl);
@@ -461,22 +464,33 @@ window.addEventListener("load", () => {
     };
     // Populate main nav with either all menuitems or a submenu if more than 4 items
     if (kategoriLista.length <= 4) {
-        kategoriLista.forEach(cat => {
-            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(cat));
+        kategoriLista.forEach((cat) => {
+            document
+                .querySelector("#topnav #top-nav-list")
+                .appendChild(addMainMenuButton(cat));
         });
     } else {
         for (let c = 0; c < 3; c++) {
-            document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton(kategoriLista[Object.keys(kategoriLista)[c]]));
+            document
+                .querySelector("#topnav #top-nav-list")
+                .appendChild(
+                    addMainMenuButton(
+                        kategoriLista[Object.keys(kategoriLista)[c]]
+                    )
+                );
         }
-        document.querySelector("#topnav #top-nav-list").appendChild(addMainMenuButton("Fler...", kategoriLista.slice(3)));
+        document
+            .querySelector("#topnav #top-nav-list")
+            .appendChild(addMainMenuButton("Fler...", kategoriLista.slice(3)));
     }
 
     // Populate hamburger menu
-    kategoriLista.forEach(cat => {
+    kategoriLista.forEach((cat) => {
         const li = document.createElement("LI");
         const a = document.createElement("A");
         a.href = "indexkat.html?p=" + cat;
-        a.textContent = kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+        a.textContent =
+            kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
         li.appendChild(a);
         hammenu.querySelector("ul").appendChild(li);
     });
@@ -484,9 +498,15 @@ window.addEventListener("load", () => {
     // if on productpage, populate productlist on page
     if (window.location.href.includes("indexkat.html")) {
         // If no category variable (GET), redirect to index.html
-        if(!window.location.href.includes("?")) window.location.assign("index.html");
+        if (!window.location.href.includes("?"))
+            window.location.assign("index.html");
         // Get category from GET-variable
-        const galleryCategory = window.location.href.split("?")[1].split("=")[1];
+        const galleryCategory = window.location.href
+            .split("?")[1]
+            .split("=")[1];
+
+        document.querySelector("title").textContent =
+            kategoriNamn[galleryCategory];
 
         byggGalleri(produktListan, galleryCategory);
         // Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
@@ -500,7 +520,10 @@ window.addEventListener("load", () => {
 
         // Nedanstående lägger till en funktion på produktsidesdialogens lägg-i-korg-knapp som lägger X st sådana i varukorgen. Återställer sedan antalet till 1.
         produktAddToCartButton.addEventListener("click", () => {
-            varukorgen.laggIKorg(produktId.textContent, Number(produktAddToCartValue.value));
+            varukorgen.laggIKorg(
+                produktId.textContent,
+                Number(produktAddToCartValue.value)
+            );
             byggVarukorgLista();
             produktAddToCartValue.value = "1";
         });
@@ -512,12 +535,16 @@ window.addEventListener("load", () => {
             item.href = "indexkat.html?p=" + cat;
             const itemHeader = document.createElement("DIV");
             itemHeader.classList.add("main-header");
-            itemHeader.textContent = kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
+            itemHeader.textContent =
+                kategoriNamn[cat] !== undefined ? kategoriNamn[cat] : cat;
             const itemIconContainer = document.createElement("DIV");
             itemIconContainer.classList.add("main-picture");
             const itemIcon = document.createElement("SPAN");
             itemIcon.classList.add("material-symbols-outlined");
-            itemIcon.textContent = kategoriIkoner[cat] !== undefined ? kategoriIkoner[cat] : "inventory_2";
+            itemIcon.textContent =
+                kategoriIkoner[cat] !== undefined
+                    ? kategoriIkoner[cat]
+                    : "inventory_2";
             itemIconContainer.appendChild(itemIcon);
             item.appendChild(itemHeader);
             item.appendChild(itemIconContainer);
