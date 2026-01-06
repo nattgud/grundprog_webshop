@@ -477,7 +477,7 @@ window.addEventListener("load", () => {
 		// Get category from GET-variable
 		const galleryCategory = window.location.href.split("?")[1].split("=")[1];
 
-		document.querySelector("title").textContent = kategoriNamn[galleryCategory];
+		document.querySelector("title").textContent = "ThingsTech " + kategoriNamn[galleryCategory];
 
 		byggGalleri(produktListan, galleryCategory);
 		// Hämtar lägg-i-korg-knappen, antalsfältet, samt det dolda produkt-ID-fältet från produktsidesdialogen.
